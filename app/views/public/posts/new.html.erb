@@ -1,2 +1,11 @@
-<h1>Public::Posts#new</h1>
-<p>Find me in app/views/public/posts/new.html.erb</p>
+<h1>投稿フォーム</h1>
+<%= form_with model: @post do |f| %>
+  <div>
+    <h4>画像</h4>
+    <%= f.file_field :image, accept: "image/*" %> <!--画像ファイルのみ投稿許可する-->
+  </div>
+  <div>
+    <%= f.text_area :body %>
+    <%= f.submit '投稿' %>
+  </div>
+<% end %>

@@ -13,7 +13,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.integer :height
       t.integer :experience
       t.integer :birth_year
-      t.boolean :gender, null: false, default: true
+      t.boolean :gender
 
       ## Recoverable
       t.string   :reset_password_token
