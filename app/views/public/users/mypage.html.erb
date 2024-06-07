@@ -1,2 +1,13 @@
-<h1>Public::Users#mypage</h1>
-<p>Find me in app/views/public/users/mypage.html.erb</p>
+  <div class="container">
+    <div class="row">
+      <!-- ユーザープロフィール表示 -->
+      <div class="col-md-3">
+        <div class="user-profile-section">
+          <%= image_tag current_user.get_profile_image %>
+          <h2><%= current_user.name %></h2>
+          <p><%= current_user.body %></p>
+          <%= link_to 'プロフィール編集', edit_user_path(current_user), class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+  </div>

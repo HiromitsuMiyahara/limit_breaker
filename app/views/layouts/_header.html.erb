@@ -1,0 +1,88 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+         <!-- image_tag 'cakerogo.webp', size: '150x150'<br>-->
+          ==LIMIT BREAKER==<i></i>
+      </a>
+      <ul class="navbar-nav">
+        <% if user_signed_in? %>
+          <!--ユーザーがサインイン中の場合-->
+          <!--マイページへのリンク-->
+          <li class="nav-item">
+            <%= link_to mypage_path, class: "nav-link text-light"  do %>
+               マイページ
+            <% end %>
+          </li>
+          <!--投稿一覧へのリンク-->
+          <li class="nav-item">
+            <%= link_to posts_path, class: "nav-link text-light" do %>
+              投稿一覧
+            <% end %>
+          </li>
+          <!--筋トレ記録画面へのリンク-->
+          <li class="nav-item">
+            <%= link_to new_record_path, class: "nav-link text-light" do %>
+               筋トレを記録
+            <% end %>
+          </li>
+          <!--ログアウトへのリンク-->
+          <li class="nav-item">
+            <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-light" do %>
+               ログアウト
+            <% end %>
+          </li>
+
+        <% elsif admin_signed_in? %>
+          <!--管理者がサインインしている場合-->
+          <!--投稿一覧へのリンク-->
+          <li class="nav-item">
+            <%= link_to admin_posts_path, class: "nav-link text-light" do %>
+              投稿一覧
+            <% end %>
+          </li>
+          <!--会員一覧へのリンク-->
+          <li class="nav-item">
+            <%= link_to admin_users_path, class: "nav-link text-light" do %>
+              会員一覧
+            <% end %>
+          </li>
+          <!--ログアウトへのリンク-->
+          <li class="nav-item">
+            <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link text-light" do %>
+              ログアウト
+            <% end %>
+          </li>
+
+        <% else %>
+          <!--サインインしていない場合-->
+          <!--Aboutへのリンク-->
+          <li class="nav-item">
+            <%= link_to about_path, class: "nav-link text-light" do %>
+              About
+            <% end %>
+          </li>
+          <!--投稿一覧へのリンク-->
+          <li class="nav-item">
+            <%= link_to posts_path, class: "nav-link text-light" do %>
+              投稿一覧
+            <% end %>
+          </li>
+          <!--新規登録へのリンク-->
+          <li class="nav-item">
+            <%= link_to new_user_registration_path, class: "nav-link text-light" do %>
+              新規登録
+            <% end %>
+          </li>
+          <!--ログインへのリンク-->
+          <li class="nav-item">
+            <%= link_to new_user_session_path, class: "nav-link text-light" do %>
+              ログイン
+            <% end %>
+          </li>
+
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+</header>

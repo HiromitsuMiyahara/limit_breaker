@@ -2,7 +2,16 @@
 
 class Public::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
-
+  
+  # サインインしたらマイページへ遷移
+  def after_sign_in_path_for(resource)
+    mypage_path
+  end
+  
+  # サインアウトしたらサインイン画面に遷移
+  def after_sign_out_path_for(resource)
+    new_user_session_path
+  end
   # GET /resource/sign_in
   # def new
   #   super
