@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 2024_06_07_075832) do
     t.string "part", null: false
     t.string "place", null: false
     t.string "exercise", null: false
+    t.integer "weight"
     t.integer "rep", null: false
     t.integer "set", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -105,7 +106,7 @@ ActiveRecord::Schema.define(version: 2024_06_07_075832) do
     t.integer "height"
     t.integer "experience"
     t.integer "birth_year"
-    t.boolean "gender"
+    t.integer "gender", default: 0
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

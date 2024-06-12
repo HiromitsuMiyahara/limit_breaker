@@ -6,6 +6,7 @@ class CreateRecords < ActiveRecord::Migration[6.1]
       t.string :part, null: false
       t.string :place, null: false
       t.string :exercise, null: false
+      t.integer :weight
       t.integer :rep, null: false
       t.integer :set, null: false
 

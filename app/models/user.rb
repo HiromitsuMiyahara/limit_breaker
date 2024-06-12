@@ -10,6 +10,11 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :post_comments, dependent: :destroy
 
+  validates :name, presence: true
+
+  #性別をプロフィールに表示させる。
+  enum gender: { man: 0, woman: 1}
+
   # # フォローをした、されたの関係
   # has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   # has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
@@ -47,5 +52,24 @@ class User < ApplicationRecord
       profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
     profile_image.variant(resize_to_limit: [100, 100]).processed
+  end
+
+  #ログイン時に退会済みのユーザーが同じアカウントでログイン出来ないようにする。
+  def active_for_authentication?
+    super && (is_active == true)
+  end
+  
+#sessions_controller.rbで記述したUser.guestのguestメソッドを定義
+  GUEST_USER_EMAIL = "guest@example.com"
+
+  def self.guest
+    find_or_create_by!(email: GUEST_USER_EMAIL) do |user| #データの検索と作成を自動的に判断して処理を行う
+      user.password = SecureRandom.urlsafe_base64 #ランダムな文字列を生成するRubyのメソッドの一種
+      user.name = "guestuser"
+    end
+  end
+  
+  def guest_user?
+    email == GUEST_USER_EMAIL
   end
 end

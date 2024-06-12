@@ -1,2 +1,65 @@
-<h1>Public::Records#edit</h1>
-<p>Find me in app/views/public/records/edit.html.erb</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="mb-0">トレーニング記録編集</h2>
+        </div>
+
+<!--バリデーションエラーメッセージ-->
+    <% if @record.errors.any? %>
+    <%= @record.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <% end %>
+
+        <div class="card-body">
+          <%= form_with model: @record, method: :patch, url: record_path(@record.id), local: true do |f| %>
+
+            <div class="form-group">
+              <%= f.label :date, "日付" %>
+              <%= f.date_field :date, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :part, "部位" %>
+              <%= f.text_field :part, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :place, "場所" %>
+              <%= f.text_field :place, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :exercise, "エクササイズ" %>
+              <%= f.text_field :exercise, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :weight, "重量(kg)" %>
+              <%= f.number_field :weight, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :rep, "レップ数" %>
+              <%= f.number_field :rep, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :set, "セット数" %>
+              <%= f.number_field :set, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.submit '記録を保存', class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

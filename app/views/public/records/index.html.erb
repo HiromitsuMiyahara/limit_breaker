@@ -1,2 +1,44 @@
-<h1>Public::Records#index</h1>
-<p>Find me in app/views/public/records/index.html.erb</p>
+<div class="container mt-5">
+  <h1>トレーニング記録一覧</h1>
+
+  <%= link_to '新しく記録する', new_record_path, class: 'btn btn-primary' %>
+
+    <table class="table table-bordered table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>日付</th>
+          <th>部位</th>
+          <th>場所</th>
+          <th>エクササイズ</th>
+          <th>重量</th>
+          <th>レップ数</th>
+          <th>セット数</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @records.each do |record| %>
+          <tr>
+            <td class="align-middle">
+              <%= link_to record_path(record.id) do %>
+                <%= record.date %>
+              <% end %>
+            </td>
+            <td class="align-middle"><%= record.part %></td>
+            <td class="align-middle"><%= record.place %></td>
+            <td class="align-middle"><%= record.exercise %></td>
+            <td class="align-middle"><%= record.weight %></td>
+            <td class="align-middle"><%= record.rep %></td>
+            <td class="align-middle"><%= record.set %></td>
+            <td class="align-middle"><!--セル内のテキストを中央に揃える。-->
+              <%= link_to "編集", edit_record_path(record.id), class: "btn btn-warning" %>
+            </td>
+            <td class="align-middle">
+              <%= link_to "削除", record_path(record.id), method: :delete, class: "btn btn-danger", data: { confirm: "記録を削除しますか？" } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>

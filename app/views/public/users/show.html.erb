@@ -1,2 +1,17 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+ <div class="container">
+    <div class="row">
+      <!-- ユーザープロフィール表示 -->
+      <div class="col-md-3">
+        <div class="user-profile-section">
+          <%= image_tag @user.get_profile_image %>
+          <h2><%= @user.name %></h2>
+          <p><%= @user.body %></p>
+          <p>性別: <%= I18n.t("enums.user.gender.#{@user.gender}") %></p>
+          <p>体重: <%= @user.weight %> kg</p>
+          <p>身長: <%= @user.height %> cm</p>
+          <p>誕生年: <%= @user.birth_year %> 年</p>
+          <p>トレーニング歴: <%= @user.experience %> 年</p>
+        </div>
+      </div>
+    </div>
+  </div>

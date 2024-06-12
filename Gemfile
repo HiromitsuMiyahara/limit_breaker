@@ -58,3 +58,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise' 
 #カレンダー機能
 gem 'simple_calendar'
+
+gem "enum_help"
