@@ -1,0 +1,21 @@
+<div class="container mt-5"><!--containerで、コンテンツを中央に配置し、左右の余白を自動的に設定,mt-5クラスは、上側のマージンを追加-->
+  <div class="row justify-content-center"><!--rowクラスで、横方向に要素を整列させる、justify-content-centerクラスで、中央寄せを指定-->
+    <div class="col-md-8"><!--中サイズ以上の画面サイズ（中サイズ、大サイズ、特大サイズ）の場合に、8つの幅を占める列を定義-->
+      <div class="card"><!--カードコンポーネント-->
+        <div class="card-header"><!--カードコンポーネントのヘッダー部分-->
+          <h1 class="mb-0 text-center">本当に退会しますか？</h1><!--mb-0下側のマージンを0に設定-->
+        </div>
+        <div class="card-body"><!--カードコンポーネントのボディ部分-->
+          <p class="text-center"><!--中央寄せ-->
+            退会すると、会員登録情報が閲覧できなくなります。<br>
+            退会する場合は、「退会する」をクリックしてください。
+          </p>
+          <div class="text-center"><!--中央寄せ-->
+            <%= link_to "退会しない", mypage_path, class: "btn btn-primary ms-3" %>
+            <%= link_to "退会する", users_withdraw_path, method: :patch, class: "btn btn-danger ms-3", data: { confirm: "本当に退会しますか？" } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

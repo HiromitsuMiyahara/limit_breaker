@@ -1,0 +1,39 @@
+<div class="container mt-5">
+  <h2 class="text-center my-4">投稿詳細</h2><!--中央揃え,my-4で上下のマージン-->
+
+  <table class="table table-bordered"><!--table-bordered：テーブルに枠線-->
+    <thead class="thead-light"><!--テーブルヘッダーに薄い背景色-->
+    <tr>
+      <th>プロフィール</th>
+      <th>名前</th>
+      <th>投稿画像</th>
+      <th>内容</th>
+      <th>日付</th>
+      <th>操作</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td class="text-center align-middle"><!--要素を中央揃え,セル内のテキストを中央に揃える。-->
+          <%= link_to user_path(@post.user.id) do %>
+            <%= image_tag @post.user.get_profile_image, class: 'img-thumbnail' %><!--画像に枠線と余白を追加し、サムネイル風に表示-->
+          <% end %>
+        </td>
+        <td class="align-middle"><%= @post.user.name %></td><!--セル内のテキストを中央に揃える。-->
+        <td class="text-center align-middle"><%= image_tag @post.get_image, class: 'img-fluid' %></td><!--要素を中央揃え,セル内のテキストを中央に揃える。画像を親要素にフィット-->
+        <td class="align-middle"><%= @post.body %></td><!--セル内のテキストを中央に揃える。-->
+        <td class="align-middle"><%= @post.created_at.strftime('%Y/%m/%d') %></td>
+        <% if @post.user == current_user %>
+          <td class="align-middle"><!--セル内のテキストを中央に揃える。-->
+            <%= link_to "編集", edit_post_path(@post.id), class: "btn btn-warning" %>
+          </td>
+          <td class="align-middle">
+            <%= link_to "削除", post_path(@post.id), method: :delete, class: "btn btn-danger", data: { confirm: "投稿を削除しますか？" } %>
+          </td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>

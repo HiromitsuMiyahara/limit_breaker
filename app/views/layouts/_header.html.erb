@@ -1,0 +1,64 @@
+<header class="bg-dark text-white py-3"><!--背景色を薄い黒に設定,テキストを白色-->
+  <nav class="navbar navbar-expand-lg navbar-dark"><!---->
+    <div class="container-fluid"><!--ナビゲーションバーが全幅に広がる-->
+      <a class="navbar-brand" href="/"><!---->
+        <!-- Uncomment the following line to add an image logo -->
+        <!--  image_tag 'cakerogo.webp', size: '150x150' %> -->
+        ==LIMIT BREAKER==
+      </a>
+      <!--ハンバーガーメニュー-->
+      <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+      <!--  <span class="navbar-toggler-icon"></span>-->
+      <!--</button>-->
+      <div class="collapse navbar-collapse"><!---->
+        <ul class="navbar-nav ml-auto"><!--ナビゲーションリンクを右揃え-->
+          <% if user_signed_in? %>
+            <!-- ユーザーがサインイン中の場合 -->
+            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to 'マイページ', mypage_path, class: "nav-link text-light" %><!--text-light は、テキストを薄い色に変更-->
+            </li>
+            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to '新規投稿', new_post_path, class: "nav-link text-light" %><!--text-light は、テキストを薄い色に変更-->
+            </li>
+            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to '投稿一覧', posts_path, class: "nav-link text-light" %><!--text-light は、テキストを薄い色に変更-->
+            </li>
+            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to '筋トレ記録一覧', records_path, class: "nav-link text-light" %><!--text-light は、テキストを薄い色に変更-->
+            </li>
+            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link text-light" %><!--text-light は、テキストを薄い色に変更-->
+            </li>
+
+          <% elsif admin_signed_in? %>
+            <!-- 管理者がサインインしている場合 -->
+            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to '投稿一覧', admin_posts_path, class: "nav-link text-light" %><!--text-light は、テキストを薄い色に変更-->
+            </li>
+            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to '会員一覧', admin_users_path, class: "nav-link text-light" %><!--text-light は、テキストを薄い色に変更-->
+            </li>
+            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link text-light" %><!--text-light は、テキストを薄い色に変更-->
+            </li>
+
+          <% else %>
+            <!-- サインインしていない場合 -->
+            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to 'About', about_path, class: "nav-link text-light" %><!--text-light は、テキストを薄い色に変更-->
+            </li>
+            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to '投稿一覧', posts_path, class: "nav-link text-light" %><!--text-light は、テキストを薄い色に変更-->
+            </li>
+            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to '新規登録', new_user_registration_path, class: "nav-link text-light" %><!--text-light は、テキストを薄い色に変更-->
+            </li>
+            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to 'ログイン', new_user_session_path, class: "nav-link text-light" %><!--text-light は、テキストを薄い色に変更-->
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

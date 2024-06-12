@@ -1,0 +1,27 @@
+<div class="container">
+  <h2 class="text-center my-4">投稿フォーム</h2>
+
+  <!--バリデーションエラーメッセージ-->
+    <% if @post.errors.any? %>
+    <%= @post.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <% end %>
+
+  <!--投稿フォーム-->
+    <%= form_with model: @post do |f| %>
+    <div class="form-group">
+      <label for="post_image">画像</label>
+      <%= f.file_field :post_image, accept: "image/*", class: "form-control-file" %> <!-- 画像ファイルのみ投稿許可する -->
+    </div>
+    <div class="form-group">
+      <%= f.text_area :body, class: "form-control", placeholder: "投稿内容を入力してください" %>
+    </div>
+    <div class="form-group">
+      <%= f.submit '投稿', class: "btn btn-primary" %>
+    </div>
+    <% end %>
+</div>
