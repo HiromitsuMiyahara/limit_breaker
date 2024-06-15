@@ -34,7 +34,7 @@
             <tbody>
               <% @posts.each do |post| %>
               <tr>
-                <td class="text-center align-middle"><%= image_tag post.get_image, class: 'img-fluid' %></td><!--要素を中央揃え,セル内のテキストを中央に揃える。画像を親要素にフィット-->
+                <td class="text-center align-middle"><%= image_tag post.get_post_image, class: 'img-fluid' %></td><!--要素を中央揃え,セル内のテキストを中央に揃える。画像を親要素にフィット-->
                 <td class="align-middle"><%= post.body %></td><!--セル内のテキストを中央に揃える。-->
                 <td class="align-middle"><%= post.created_at.strftime('%Y/%m/%d') %></td><!--セル内のテキストを中央に揃える。-->
                 <td class="align-middle"><!--セル内のテキストを中央に揃える。-->
@@ -47,7 +47,7 @@
               <% end %>
             </tbody>
           </table>
-        </div>v1IBYOkp5oWOOpVanon7
+        </div>
       </div>
     </div>
 
