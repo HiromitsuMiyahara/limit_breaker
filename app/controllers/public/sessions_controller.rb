@@ -17,6 +17,16 @@ class Public::SessionsController < Devise::SessionsController
   #ゲストでサインイン
   def guest_sign_in
     user = User.guest
+    
+      guest_user = user
+      #ゲストユーザーが作成した投稿を削除。any?メソッドは、レビューが存在する場合にtrueを返す。
+      guest_user.posts.each { |post| post.destroy } if guest_user.posts.any?
+      # ゲストユーザーが作成したコメントを削除
+      guest_user.post_comments.each { |comment| comment.destroy } if guest_user.post_comments.any?
+      # ゲストユーザーが作成した筋トレ記録を削除
+      guest_user.records.each { |record| record.destroy } if guest_user.records.any?
+    
+    
     sign_in user
     flash[:notice] = "ゲストユーザーでログインしました。"
     redirect_to mypage_path
