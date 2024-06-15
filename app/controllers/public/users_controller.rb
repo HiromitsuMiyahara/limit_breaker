@@ -1,5 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :ensure_guest_user, only: [:edit]
+  before_action :is_matching_login_user, only: [:edit, :update]
 
   def mypage
     @user = current_user
@@ -8,7 +9,8 @@ class Public::UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user
+    # is_matching_login_user
+    @user = User.find(params[:id])
   end
 
   def show
@@ -16,7 +18,8 @@ class Public::UsersController < ApplicationController
   end
 
   def update
-    @user = current_user
+    # is_matching_login_user
+    @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:notice] = 'プロフィールの編集が完了しました。'
       redirect_to mypage_path
@@ -49,6 +52,13 @@ class Public::UsersController < ApplicationController
     @user = current_user
     if @user.guest_user? #.guest_user?=モデルで定義したメソッド
       flash[:notice] = "ゲストユーザーはプロフィール編集画面へ遷移できません。"
+      redirect_to mypage_path
+    end
+  end
+
+  def is_matching_login_user
+    @user = User.find(params[:id])
+    unless @user.id == current_user.id
       redirect_to mypage_path
     end
   end

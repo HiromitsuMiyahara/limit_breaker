@@ -1,4 +1,6 @@
 class Public::RecordsController < ApplicationController
+  before_action :recorded_user, only: [:edit, :update]
+
   def new
     @record = Record.new
   end
@@ -50,5 +52,12 @@ class Public::RecordsController < ApplicationController
 
   def record_params
     params.require(:record).permit(:date, :part, :place, :exercise, :weight, :rep, :set)
+  end
+
+  def recorded_user
+    @record = Record.find(params[:id])
+    unless @record.user == current_user
+      redirect_to records_path
+    end
   end
 end

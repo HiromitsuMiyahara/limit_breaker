@@ -1,4 +1,6 @@
 class Public::PostsController < ApplicationController
+  before_action :posted_user, only: [:edit, :update]
+
   def new
     @post = Post.new
   end
@@ -41,7 +43,7 @@ class Public::PostsController < ApplicationController
     post = Post.find(params[:id])
     if post.destroy
       flash[:notice] = '投稿を削除しました。'
-      redirect_to posts_path
+      redirect_to mypage_path
     else
       render :index
     end
@@ -51,5 +53,12 @@ class Public::PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:post_image, :body)
+  end
+
+  def posted_user
+    @post = Post.find(params[:id])
+    unless @post.user == current_user
+      redirect_to posts_path
+    end
   end
 end

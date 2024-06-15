@@ -19,7 +19,13 @@ class Public::SessionsController < Devise::SessionsController
     user = User.guest
     sign_in user
     flash[:notice] = "ゲストユーザーでログインしました。"
-    redirect_to user_path(user)
+    redirect_to mypage_path
+  end
+  
+  # ゲストがサインアウトしたら投稿全てを削除
+  def destroy
+    reset_guest_data if current_user.email == User::GUEST_USER_EMAIL
+    super
   end
   # GET /resource/sign_in
   # def new

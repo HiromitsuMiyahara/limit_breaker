@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :post_comments, dependent: :destroy
 
   validates :name, presence: true
+  validates :email, presence: true
 
   #性別をプロフィールに表示させる。
   enum gender: { man: 0, woman: 1}
@@ -58,7 +59,7 @@ class User < ApplicationRecord
   def active_for_authentication?
     super && (is_active == true)
   end
-  
+
 #sessions_controller.rbで記述したUser.guestのguestメソッドを定義
   GUEST_USER_EMAIL = "guest@example.com"
 
@@ -68,8 +69,10 @@ class User < ApplicationRecord
       user.name = "guestuser"
     end
   end
-  
+
   def guest_user?
     email == GUEST_USER_EMAIL
   end
+  
+  
 end

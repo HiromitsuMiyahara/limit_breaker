@@ -1,5 +1,16 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
+
+    <!--バリデーションエラーメッセージ-->
+    <% if @user.errors.any? %>
+    <%= @user.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <% end %>
+
     <div class="col-md-8">
       <div class="card">
         <div class="card-header">
@@ -17,7 +28,7 @@
             </div>
 
             <div class="form-group mb-3">
-              <%= f.label :name, "名前", class: 'form-label' %>
+              <%= f.label :name, "ユーザー名", class: 'form-label' %>
               <%= f.text_field :name, class: 'form-control' %>
             </div>
 
@@ -59,7 +70,7 @@
                 <%= f.label :gender, "女性", class: 'form-check-label' %>
               </div>
             </div>
-            
+
             <div class="form-group mb-3">
               <%= f.label :email, "メールアドレス", class: 'form-label' %>
               <%= f.text_field :email, class: 'form-control' %>
