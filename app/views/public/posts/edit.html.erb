@@ -16,7 +16,7 @@
     <div class="form-group">
       <h4>画像</h4>
       <div class="mb-3">
-        <%= image_tag @post.get_image, class: 'img-thumbnail' %>
+        <%= image_tag @post.get_post_image, class: 'img-thumbnail' %>
         <%= f.file_field :post_image, accept: "image/*", class: 'form-control-file' %> <!-- 画像ファイルのみ投稿許可する -->
       </div>
     </div>
