@@ -55,7 +55,7 @@ class Public::UsersController < ApplicationController
       redirect_to mypage_path
     end
   end
-
+#他人のプロフィール編集画面を開けないようにする。
   def is_matching_login_user
     @user = User.find(params[:id])
     unless @user.id == current_user.id
