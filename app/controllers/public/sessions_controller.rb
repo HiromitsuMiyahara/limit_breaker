@@ -69,7 +69,7 @@ class Public::SessionsController < Devise::SessionsController
           redirect_to new_user_registration_path
         end
       else
-        flash.now[:notice] = "項目を入力してください。"
+        flash.now[:notice] = "メールアドレスまたはパスワードが正しくありません。"
       end
     else
       flash.now[:notice] = "メールアドレスまたはパスワードが正しくありません。"

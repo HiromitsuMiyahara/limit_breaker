@@ -8,8 +8,7 @@
 
 puts "seedの実行を開始"
 
-  Admin = User.find_or_create_by!(email: ENV['SECRET_EMAIL']) do |admin|
-    admin.name = "管理者"
+  Admin.find_or_create_by!(email: ENV['SECRET_EMAIL']) do |admin|
     admin.password = ENV['SECRET_PASSWORD']
    end
 
