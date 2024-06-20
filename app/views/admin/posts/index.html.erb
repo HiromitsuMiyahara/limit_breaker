@@ -1,2 +1,40 @@
-<h1>Admin::Posts#index</h1>
-<p>Find me in app/views/admin/posts/index.html.erb</p>
+<div class="container mt-5">
+  <h2 class="text-center my-4">投稿一覧</h2><!--中央揃え,my-4で上下のマージン-->
+
+  <table class="table table-hover"><!--table-bordered：テーブルに枠線、table-hover：ホバー時に行を強調。-->
+    <thead class="thead-light"><!--テーブルヘッダーに薄い背景色-->
+      <tr>
+        <th>プロフィール</th>
+        <th>名前</th>
+        <th>投稿画像</th>
+        <th>内容</th>
+        <th>日付</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @posts.each do |post| %>
+      <tr>
+        <td class="text-center align-middle">
+          <%= link_to admin_user_path(post.user.id) do %>
+            <%= image_tag post.user.get_profile_image, class: 'img-thumbnail' %><!--画像に枠線と余白を追加し、サムネイル風に表示-->
+          <% end %>
+        </td>
+        <td class="align-middle"><%= post.user.name %></td>
+        <td class="text-center align-middle"><%= image_tag post.get_post_image, class: 'img-thumbnail' %></td><!--画像に枠線と余白を追加し、サムネイル風に表示-->
+        <td class="align-middle"><%= post.body %></td>
+        <td class="align-middle">
+          <%= link_to admin_post_path(post.id) do %>
+            <%= post.created_at.strftime('%Y/%m/%d') %>
+          <% end %>
+        </td>
+        <td class="align-middle">
+          <% if post.user == current_user %>
+          <%= link_to "削除", post_path(post.id), method: :delete, class: 'btn btn-danger', data: { confirm: "投稿を削除しますか？" } %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,4 +1,5 @@
 class Public::PostsController < ApplicationController
+  before_action :authenticate_user!
   before_action :posted_user, only: [:edit, :update]
 
   def new
@@ -7,11 +8,11 @@ class Public::PostsController < ApplicationController
 
   def index
     @posts = Post.all
-
   end
 
   def show
     @post = Post.find(params[:id])
+    @post_comment = PostComment.new
   end
 
   def create

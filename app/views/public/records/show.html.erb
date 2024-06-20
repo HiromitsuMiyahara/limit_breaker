@@ -3,7 +3,7 @@
 
     <%= link_to '新しく記録する', new_record_path, class: 'btn btn-primary' %>
 
-    <table class="table table-bordered table-hover">
+    <table class="table table-hover">
       <thead class="thead-light">
         <tr>
           <th>日付</th>
@@ -27,7 +27,7 @@
             <td class="align-middle"><%= @record.rep %></td>
             <td class="align-middle"><%= @record.set %></td>
             <td class="align-middle"><!--セル内のテキストを中央に揃える。-->
-              <%= link_to "編集", edit_record_path(@record.id), class: "btn btn-warning" %>
+              <%= link_to "編集", edit_record_path(@record.id), class: "btn btn-primary" %>
             </td>
             <td class="align-middle">
               <%= link_to "削除", record_path(@record.id), method: :delete, class: "btn btn-danger", data: { confirm: "記録を削除しますか？" } %>

@@ -1,0 +1,15 @@
+<table class="table table-hover">
+  <% @users.each do |user| %>
+    <tr>
+      <td class="align-middle"><%= link_to user.name, admin_user_path(user.id) %></td>
+      <td class="align-middle"><%= user.email %></td>
+      <td class="align-middle">
+        <% if user.is_active == true %>
+          <p class = "text-success">有効</p>
+        <% else %>
+          <p class = "text-danger">退会</p>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>

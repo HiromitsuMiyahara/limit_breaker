@@ -6,6 +6,10 @@
           <%= image_tag current_user.get_profile_image %>
           <h2><%= current_user.name %></h2>
           <p><%= current_user.body %></p>
+          <% unless current_user.guest_user? %>
+            <p>フォロー数:<%= link_to @user.followings.count, user_followings_path(@user) %></p>
+            <p>フォロワー数:<%= link_to @user.followers.count, user_followers_path(@user) %></p>
+          <% end %>
           <p>性別: <%= I18n.t("enums.user.gender.#{current_user.gender}") %></p>
           <p>体重: <%= current_user.weight %> kg</p>
           <p>身長: <%= current_user.height %> cm</p>
@@ -20,13 +24,13 @@
     <!-- ユーザー投稿表示 -->
       <div class="col-md-9">
         <div class="user-post-section">
-          <table class="table table-bordered mt-3"><!--table-bordered：テーブルに枠線-->
+          <table class="table table-hover mt-3"><!--table-bordered：テーブルに枠線-->
             <thead class="thead-light"><!--テーブルヘッダーに薄い背景色-->
               <tr>
                 <th>投稿画像</th>
                 <th>内容</th>
                 <th>日付</th>
-                <th>操作</th>
+                <th></th>
                 <th></th>
               </tr>
             </thead>
@@ -38,7 +42,7 @@
                 <td class="align-middle"><%= post.body %></td><!--セル内のテキストを中央に揃える。-->
                 <td class="align-middle"><%= post.created_at.strftime('%Y/%m/%d') %></td><!--セル内のテキストを中央に揃える。-->
                 <td class="align-middle"><!--セル内のテキストを中央に揃える。-->
-                <%= link_to "編集", edit_post_path(post.id), class: "btn btn-warning" %>
+                <%= link_to "編集", edit_post_path(post.id), class: "btn btn-primary" %>
                 </td>
                 <td class="align-middle"><!--セル内のテキストを中央に揃える。-->
                   <%= link_to "削除", post_path(post.id), method: :delete, class: "btn btn-danger", data: { confirm: "投稿を削除しますか？" } %>
@@ -54,7 +58,7 @@
     <div class="row">
       <div  class="col-md-12 mt-5">
         <div class="user-record-section">
-          <table class="table table-bordered table-hover">
+          <table class="table table-hover">
             <thead class="thead-light">
               <tr>
                 <th>日付</th>
@@ -83,7 +87,7 @@
                   <td class="align-middle"><%= record.rep %></td>
                   <td class="align-middle"><%= record.set %></td>
                   <td class="align-middle">
-                    <%= link_to "編集", edit_record_path(record.id), class: "btn btn-warning" %>
+                    <%= link_to "編集", edit_record_path(record.id), class: "btn btn-primary" %>
                   </td>
                   <td class="align-middle">
                     <%= link_to "削除", record_path(record.id), method: :delete, class: "btn btn-danger", data: { confirm: "記録を削除しますか？" } %>

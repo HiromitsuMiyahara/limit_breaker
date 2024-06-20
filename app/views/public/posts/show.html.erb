@@ -21,13 +21,17 @@
             <%= image_tag @post.user.get_profile_image, class: 'img-thumbnail' %><!--画像に枠線と余白を追加し、サムネイル風に表示-->
           <% end %>
         </td>
-        <td class="align-middle"><%= @post.user.name %></td><!--セル内のテキストを中央に揃える。-->
+        <td class="align-middle">
+          <%= link_to user_path(@post.user.id) do %>
+            <%= @post.user.name %>
+          <% end %>
+        </td>
         <td class="text-center align-middle"><%= image_tag @post.get_post_image, class: 'img-fluid' %></td><!--要素を中央揃え,セル内のテキストを中央に揃える。画像を親要素にフィット-->
         <td class="align-middle"><%= @post.body %></td><!--セル内のテキストを中央に揃える。-->
         <td class="align-middle"><%= @post.created_at.strftime('%Y/%m/%d') %></td>
         <% if @post.user == current_user %>
           <td class="align-middle"><!--セル内のテキストを中央に揃える。-->
-            <%= link_to "編集", edit_post_path(@post.id), class: "btn btn-warning" %>
+            <%= link_to "編集", edit_post_path(@post.id), class: "btn btn-primary" %>
           </td>
           <td class="align-middle">
             <%= link_to "削除", post_path(@post.id), method: :delete, class: "btn btn-danger", data: { confirm: "投稿を削除しますか？" } %>
@@ -36,4 +40,35 @@
       </tr>
     </tbody>
   </table>
+
+  <div class="comments mt-4">
+    <h3>コメント</h3>
+    <%= form_with model: [@post, @post_comment], local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :comment, "コメントを追加" %>
+        <%= f.text_area :comment, class: "form-control", rows: 3 %>
+      </div>
+      <div class="form-group">
+        <%= f.submit "コメントを投稿", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+
+    <ul class="list-unstyled">
+      <% @post.post_comments.each do |post_comment| %>
+        <li class="media my-3">
+          <div class="media-body">
+            <h5 class="mt-0 mb-1">
+              <%= link_to user_path(post_comment.user.id) do %>
+                <%= post_comment.user.name %>
+              <% end %>
+              <% if post_comment.user == current_user %>
+                <%= link_to "削除", post_post_comment_path(@post, post_comment), method: :delete, data: { confirm: "コメントを削除しますか？" }, class: "btn btn-sm btn-danger float-right" %>
+              <% end %>
+            </h5>
+            <%= post_comment.comment%>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>

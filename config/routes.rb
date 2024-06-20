@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'searches/search'
+  end
+  namespace :admin do
+    get 'relationships/followings'
+    get 'relationships/followers'
+  end
+  namespace :admin do
+    get 'post_comments/destroy'
+  end
   # 利用者用
   # URL /users/sign_in ...
   devise_for :users, controllers: {
@@ -22,8 +32,15 @@ Rails.application.routes.draw do
   get '/admin', to: 'admin/homes#top'
 
   namespace :admin do
-    resources :users, only: [:index, :show, :edit, :update]
-    resources :posts, only: [:index, :show, :destroy]
+    resources :users, only: [:index, :show, :edit, :update] do
+      resource :relationships
+        get '/followers', to: 'relationships#followers'
+        get '/followings', to: 'relationships#followings'
+      end
+    resources :posts do
+      resources :post_comments, only: [:destroy]
+    end
+    get '/search', to: 'searches#search'
   end
 
   scope module: :public do
@@ -32,12 +49,7 @@ Rails.application.routes.draw do
     get '/users/unsubscribe', to: 'users#unsubscribe'
     patch '/users/withdraw', to: 'users#withdraw'
 
-    get '/search', to: 'public/searches#search'
-
-    get '/users/:user_id/followers', to: 'relationships#followers'
-    get '/users/:user_id/followings', to: 'relationships#followings'
-    post '/users/:user_id/relationships', to: 'relationships#create'
-    delete '/users/:user_id/relationships', to: 'relationships#destroy'
+    get '/search', to: 'searches#search'
 
     resources :posts do
       resource :favorites, only: [:create, :destroy]
@@ -48,7 +60,13 @@ Rails.application.routes.draw do
 
     resources :records
 
-    resources :users, only: [:show, :edit, :update]
+    resources :users, only: [:show, :edit, :update] do
+      resource :relationships, only: [:create, :destroy]
+        get '/followers', to: 'relationships#followers'
+        get '/followings', to: 'relationships#followings'
+        post '/relationships', to: 'relationships#create'
+        delete '/relationships', to: 'relationships#destroy'
+    end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
