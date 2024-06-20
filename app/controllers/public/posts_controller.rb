@@ -7,8 +7,8 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    #最新の投稿から降順に並べ替えて、フォローしているユーザーの投稿のみ表示。
-    @posts = Post.where(user_id: current_user.following_ids).order(created_at: :desc) 
+    #最新の投稿から降順に並べ替えて、フォローしているユーザーと自分の投稿のみ表示。
+    @posts = Post.where(user_id: current_user.following_ids + [current_user.id]).order(created_at: :desc)
   end
 
   def show
