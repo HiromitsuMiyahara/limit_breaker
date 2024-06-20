@@ -8,7 +8,7 @@
 
 puts "seedの実行を開始"
 
-User.find_or_create_by!(email: "arnold@example.com") do |user|
+arnold = User.find_or_create_by!(email: "arnold@example.com") do |user|
   user.name = "Arnold"
   user.password = "password"
   user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user1.jpg"), filename:"sample-user1.jpg")
