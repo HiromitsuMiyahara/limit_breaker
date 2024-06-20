@@ -19,7 +19,7 @@
 
       <div class="col-md-9">
         <div class="user-post-section">
-          <table class="table table-bordered table-hover mt-3"><!--table-bordered：テーブルに枠線-->
+          <table class="table table-hover mt-3"><!--table-bordered：テーブルに枠線-->
             <thead class="thead-light"><!--テーブルヘッダーに薄い背景色-->
               <tr>
                 <th>投稿画像</th>
@@ -56,7 +56,7 @@
     <div class="row">
       <div  class="col-md-12 mt-5">
         <div class="user-record-section">
-          <table class="table table-bordered table-hover">
+          <table class="table table-hover">
             <thead class="thead-light">
               <tr>
                 <th>日付</th>
@@ -71,7 +71,7 @@
             <tbody>
               <% @records.each do |record| %>
                 <tr>
-                  <td class="align-middle"><%= record.date %></td>
+                  <td class="align-middle"><%= link_to record.date, admin_record_path(record.id) %></td>
                   <td class="align-middle"><%= record.part %></td>
                   <td class="align-middle"><%= record.place %></td>
                   <td class="align-middle"><%= record.exercise %></td>

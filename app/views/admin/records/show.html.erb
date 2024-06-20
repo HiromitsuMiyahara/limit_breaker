@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <h2 class="text-center my-4">トレーニング記録詳細</h2><!--中央揃え,my-4で上下のマージン-->
+
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>日付</th>
+          <th>部位</th>
+          <th>場所</th>
+          <th>エクササイズ</th>
+          <th>重量</th>
+          <th>レップ数</th>
+          <th>セット数</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td class="align-middle"><%= @record.date %></td>
+            <td class="align-middle"><%= @record.part %></td>
+            <td class="align-middle"><%= @record.place %></td>
+            <td class="align-middle"><%= @record.exercise %></td>
+            <td class="align-middle"><%= @record.weight %></td>
+            <td class="align-middle"><%= @record.rep %></td>
+            <td class="align-middle"><%= @record.set %></td>
+            <td class="align-middle"><!--セル内のテキストを中央に揃える。-->
+              <%= link_to "編集", edit_admin_record_path(@record.id), class: "btn btn-primary" %>
+            </td>
+            <td class="align-middle">
+              <%= link_to "削除", admin_record_path(@record.id), method: :delete, class: "btn btn-danger", data: { confirm: "記録を削除しますか？" } %>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+</div>

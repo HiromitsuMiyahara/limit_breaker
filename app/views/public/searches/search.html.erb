@@ -2,7 +2,7 @@
   <!--検索対象モデルがUserの時 -->
     <% if @range == "User" %>
     <h2>Users search for "<%= @word %>"</h2>
-      <%= render "admin/users/index", users: @users, options: { class: "follow-link" } %>
+      <%= render "public/users/index", users: @users, options: { class: "follow-link" } %>
 
       <!--検索対象モデルがPostの時 -->
     <% else %>

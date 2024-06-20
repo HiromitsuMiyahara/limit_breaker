@@ -7,7 +7,8 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
+    #最新の投稿から降順に並べ替えて、フォローしているユーザーの投稿のみ表示。
+    @posts = Post.where(user_id: current_user.following_ids).order(created_at: :desc) 
   end
 
   def show
@@ -16,9 +17,9 @@ class Public::PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    @post.user_id = current_user.id
-    if @post.save
+    post = Post.new(post_params)
+    post.user_id = current_user.id
+    if post.save
       flash[:notice] = '投稿が完了しました。'
       redirect_to posts_path
     else
@@ -31,10 +32,10 @@ class Public::PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
-    if @post.update(post_params)
+    post = Post.find(params[:id])
+    if post.update(post_params)
       flash[:notice] = '投稿を編集しました。'
-      redirect_to post_path(@post.id)
+      redirect_to post_path(post.id)
     else
       render :edit
     end

@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   namespace :admin do
+    get 'records/index'
+    get 'records/show'
+    get 'records/update'
+    get 'records/destroy'
+  end
+  namespace :admin do
     get 'searches/search'
   end
   namespace :admin do
@@ -36,11 +42,16 @@ Rails.application.routes.draw do
       resource :relationships
         get '/followers', to: 'relationships#followers'
         get '/followings', to: 'relationships#followings'
-      end
+    end
+    
     resources :posts do
       resources :post_comments, only: [:destroy]
     end
+    
+    resources :records, only: [:index, :show, :edit, :update, :destroy]
+    
     get '/search', to: 'searches#search'
+    
   end
 
   scope module: :public do
@@ -56,7 +67,7 @@ Rails.application.routes.draw do
       resources :post_comments, only: [:create, :destroy] do
         resource :favorites, only: [:create, :destroy]
       end
-  end
+    end
 
     resources :records
 
