@@ -2,7 +2,7 @@ class Admin::PostsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @posts = Post.all.order(created_at: :desc) 
+    @posts = Post.all.order(created_at: :desc)
   end
 
   def show
@@ -24,10 +24,11 @@ class Admin::PostsController < ApplicationController
   end
 
   def destroy
+    user = User.find(params[:id])
     post = Post.find(params[:id])
     if post.destroy
       flash[:notice] = '投稿を削除しました。'
-      redirect_to admin_posts_path
+      redirect_to admin_user_path(user)
     else
       flash.now[:notice] = '削除に失敗しました。'
       render :show
