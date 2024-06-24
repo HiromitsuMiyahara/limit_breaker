@@ -9,8 +9,28 @@
  * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
- *
+ *= require simple_calendar
  *= require_tree .
  *= require_self
+
  */
+/** {*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*  box-sizing: border-box;*/
+/*}*/
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+}
+
+/* ヘッダー下のコンテンツの位置調整 */
+body {
+  padding-top: 80px; /* ヘッダーの高さに合わせて調整 */
+}
 

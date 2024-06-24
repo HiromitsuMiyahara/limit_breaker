@@ -4,6 +4,14 @@ ja:
       gender:
         man: "男性"
         woman: "女性"
+    record:
+      part_select:
+        chest: "胸"
+        back: "背中"
+        shoulder: "肩"
+        arm: "腕"
+        stomach: "腹"
+        leg: "脚"
   errors:
     messages:
       not_saved: "エラーが発生したため、保存されませんでした。"
@@ -24,7 +32,7 @@ ja:
         date: 日付
         part: 部位
         place: 場所
-        exercise: エクササイズ
+        exercise: トレーニング名
         rep: レップ数
         set: セット数
   date:

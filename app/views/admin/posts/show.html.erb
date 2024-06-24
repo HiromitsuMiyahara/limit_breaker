@@ -16,9 +16,7 @@
     <tbody>
       <tr>
         <td class="text-center align-middle"><!--要素を中央揃え,セル内のテキストを中央に揃える。-->
-          <%= link_to user_path(@post.user.id) do %>
-            <%= image_tag @post.user.get_profile_image, class: 'img-thumbnail' %><!--画像に枠線と余白を追加し、サムネイル風に表示-->
-          <% end %>
+          <%= image_tag @post.user.get_profile_image, class: 'img-thumbnail' %><!--画像に枠線と余白を追加し、サムネイル風に表示-->
         </td>
         <td class="align-middle">
           <%= link_to admin_user_path(@post.user.id) do %>
@@ -46,7 +44,7 @@
         <li class="media my-3">
           <div class="media-body">
             <h5 class="mt-0 mb-1">
-              <%= link_to user_path(post_comment.user.id) do %>
+              <%= link_to admin_user_path(post_comment.user.id) do %>
                 <%= post_comment.user.name %>
               <% end %>
                 <%= link_to "削除", admin_post_post_comment_path(@post, post_comment), method: :delete, data: { confirm: "コメントを削除しますか？" }, class: "btn btn-sm btn-danger float-right" %>

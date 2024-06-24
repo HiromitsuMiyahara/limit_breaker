@@ -24,16 +24,16 @@
               <td class="text-center align-middle">
                 <% if post.user == current_user %>
                   <%= link_to mypage_path do %>
-                  <%= image_tag post.user.get_profile_image, class: 'img-thumbnail' %><!--画像に枠線と余白を追加し、サムネイル風に表示-->
+                  <%= image_tag post.user.get_profile_image(100,100), class: 'img-thumbnail' %><!--画像に枠線と余白を追加し、サムネイル風に表示-->
                   <% end %>
                 <% else %>
                   <%= link_to user_path(post.user.id) do %>
-                  <%= image_tag post.user.get_profile_image, class: 'img-thumbnail' %><!--画像に枠線と余白を追加し、サムネイル風に表示-->
+                  <%= image_tag post.user.get_profile_image(100,100), class: 'img-thumbnail' %><!--画像に枠線と余白を追加し、サムネイル風に表示-->
                   <% end %>
                 <% end %>
               </td>
               <td class="align-middle"><%= post.user.name %></td>
-              <td class="text-center align-middle"><%= image_tag post.get_post_image, class: 'img-thumbnail' %></td><!--画像に枠線と余白を追加し、サムネイル風に表示-->
+              <td class="text-center align-middle"><%= image_tag post.get_post_image(100,100), class: 'img-thumbnail' %></td><!--画像に枠線と余白を追加し、サムネイル風に表示-->
               <td class="align-middle"><%= post.body %></td>
               <td class="align-middle">
                 <%= link_to post_path(post.id) do %>

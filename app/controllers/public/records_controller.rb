@@ -2,13 +2,10 @@ class Public::RecordsController < ApplicationController
   before_action :authenticate_user!
   before_action :recorded_user, only: [:edit, :update]
 
-  def new
-    @record = Record.new
-  end
-
   def index
+    @record = Record.new
     #current_user.idの全ての記録を返す
-    @records = Record.where(user_id: current_user.id)
+    @records = Record.where(user_id: current_user.id).order(start_time: "desc")
   end
 
   def show
@@ -16,12 +13,14 @@ class Public::RecordsController < ApplicationController
   end
 
   def create
+    @records = Record.where(user_id: current_user.id).order(start_time: "desc")
     @record = Record.new(record_params)
     @record.user_id = current_user.id # ログインしているユーザーのIDを設定
     if @record.save
-      redirect_to records_path, notice: 'トレーニング記録が保存されました。'
+      flash[:notice] = 'トレーニング記録が保存されました。'
+      redirect_to records_path
     else
-      render :new
+      render :index
     end
   end
 
@@ -52,7 +51,7 @@ class Public::RecordsController < ApplicationController
   private
 
   def record_params
-    params.require(:record).permit(:date, :part, :place, :exercise, :weight, :rep, :set)
+    params.require(:record).permit(:start_time, :part, :place, :exercise, :weight, :rep, :set)
   end
 
   def recorded_user

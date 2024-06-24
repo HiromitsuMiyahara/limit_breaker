@@ -2,7 +2,7 @@
   <!--検索対象モデルがUserの時 -->
     <% if @range == "User" %>
     <h2 class="text-center my-4">Users search for "<%= @word %>"</h2>
-      <%= render "admin/users/index", users: @users, options: { class: "follow-link" } %>
+      <%= render "admin/users/index", users: @users %>
 
       <!--検索対象モデルがPostの時 -->
     <% else %>
@@ -23,11 +23,11 @@
             <tr>
               <td class="text-center align-middle">
                 <%= link_to admin_user_path(post.user.id) do %>
-                  <%= image_tag post.user.get_profile_image, class: 'img-thumbnail' %><!--画像に枠線と余白を追加し、サムネイル風に表示-->
+                  <%= image_tag post.user.get_profile_image(100,100), class: 'img-thumbnail' %>
                 <% end %>
               </td>
               <td class="align-middle"><%= post.user.name %></td>
-              <td class="text-center align-middle"><%= image_tag post.get_post_image, class: 'img-thumbnail' %></td><!--画像に枠線と余白を追加し、サムネイル風に表示-->
+              <td class="text-center align-middle"><%= image_tag post.get_post_image, class: 'img-thumbnail' %></td>
               <td class="align-middle"><%= post.body %></td>
               <td class="align-middle">
                 <%= link_to admin_post_path(post.id) do %>

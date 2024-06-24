@@ -6,7 +6,7 @@ class Public::UsersController < ApplicationController
   def mypage
     @user = current_user
     @posts = current_user.posts
-    @records = Record.where(user_id: current_user.id)
+    @records =current_user.records
   end
 
   def edit

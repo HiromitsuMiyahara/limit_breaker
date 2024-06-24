@@ -2,14 +2,13 @@ class CreateRecords < ActiveRecord::Migration[6.1]
   def change
     create_table :records do |t|
       t.integer :user_id
-      t.date :date, null: false
-      t.string :part, null: false
-      t.string :place, null: false
-      t.string :exercise, null: false
+      t.string :part
+      t.string :place
+      t.string :exercise
       t.integer :weight
-      t.integer :rep, null: false
-      t.integer :set, null: false
-
+      t.integer :rep
+      t.integer :set
+      t.datetime :start_time
       t.timestamps
     end
   end

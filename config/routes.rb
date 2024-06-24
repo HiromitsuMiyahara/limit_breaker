@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :public do
+    get 'events/index'
+  end
   namespace :admin do
     get 'records/index'
     get 'records/show'
@@ -21,7 +24,7 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
-  
+
   #ゲストログインの処理を行うためのルーティング
   devise_scope :user do
     post "guest_sign_in", to: "public/sessions#guest_sign_in"
@@ -43,15 +46,15 @@ Rails.application.routes.draw do
         get '/followers', to: 'relationships#followers'
         get '/followings', to: 'relationships#followings'
     end
-    
+
     resources :posts do
       resources :post_comments, only: [:destroy]
     end
-    
+
     resources :records, only: [:index, :show, :edit, :update, :destroy]
-    
+
     get '/search', to: 'searches#search'
-    
+
   end
 
   scope module: :public do
@@ -59,6 +62,8 @@ Rails.application.routes.draw do
     get '/mypage', to: 'users#mypage'
     get '/users/unsubscribe', to: 'users#unsubscribe'
     patch '/users/withdraw', to: 'users#withdraw'
+
+    get '/events', to: 'events#index'
 
     get '/search', to: 'searches#search'
 

@@ -1,0 +1,40 @@
+<div class="user-record-section">
+  <table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>日付</th>
+        <th>部位</th>
+        <th>場所</th>
+        <th>エクササイズ</th>
+        <th>重量</th>
+        <th>レップ数</th>
+        <th>セット数</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @records.each do |record| %>
+         <tr>
+          <td class="align-middle">
+            <%= link_to record_path(record.id) do %>
+              <%= record.start_time.strftime("%Y-%m-%d") %>
+            <% end %>
+          </td>
+          <td class="align-middle"><%= I18n.t("enums.record.part_select.#{record.part}") %></td>
+          <td class="align-middle"><%= record.place %></td>
+          <td class="align-middle"><%= record.exercise %></td>
+          <td class="align-middle"><%= record.weight %></td>
+          <td class="align-middle"><%= record.rep %></td>
+          <td class="align-middle"><%= record.set %></td>
+          <td class="align-middle">
+            <%= link_to "編集", edit_record_path(record.id), class: "btn btn-primary" %>
+          </td>
+          <td class="align-middle">
+            <%= link_to "削除", record_path(record.id), method: :delete, class: "btn btn-danger", data: { confirm: "記録を削除しますか？" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,44 +1,27 @@
-<div class="container mt-5">
-  <h2 class="text-center my-4">トレーニング記録一覧</h1>
+<div class="container-fluid">
+  <h2 class="text-center">筋トレ記録一覧</h2>
+  <!--バリデーションエラーメッセージ-->
+    <% if @record.errors.any? %>
+    <%= @record.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <% end %>
 
-  <%= link_to '新しく記録する', new_record_path, class: 'btn btn-primary' %>
+  <div class="row m-0">
+    <div class="col-md-2">
+      <%= render "public/users/profile", user: current_user %>
+    </div>
 
-    <table class="table table-hover">
-      <thead class="thead-light">
-        <tr>
-          <th>日付</th>
-          <th>部位</th>
-          <th>場所</th>
-          <th>エクササイズ</th>
-          <th>重量</th>
-          <th>レップ数</th>
-          <th>セット数</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @records.each do |record| %>
-          <tr>
-            <td class="align-middle">
-              <%= link_to record_path(record.id) do %>
-                <%= record.date %>
-              <% end %>
-            </td>
-            <td class="align-middle"><%= record.part %></td>
-            <td class="align-middle"><%= record.place %></td>
-            <td class="align-middle"><%= record.exercise %></td>
-            <td class="align-middle"><%= record.weight %></td>
-            <td class="align-middle"><%= record.rep %></td>
-            <td class="align-middle"><%= record.set %></td>
-            <td class="align-middle"><!--セル内のテキストを中央に揃える。-->
-              <%= link_to "編集", edit_record_path(record.id), class: "btn btn-primary" %>
-            </td>
-            <td class="align-middle">
-              <%= link_to "削除", record_path(record.id), method: :delete, class: "btn btn-danger", data: { confirm: "記録を削除しますか？" } %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+    <div class="col-md-8 ">
+      <div class="simple-calendar">
+		    <%= render "simple_calendar/simple_calendar", user: current_user %>
+		  </div>
+  	</div>
+  <!--筋トレ記録入力欄-->
+  	<div class="col-md-2">
+      <%= render "new", record: @record %>
+    </div>
+</div>

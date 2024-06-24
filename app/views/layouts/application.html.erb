@@ -8,12 +8,15 @@
 
     <script src="https://kit.fontawesome.com/3d91773719.js" crossorigin="anonymous"></script>
 
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
+    <header>
+      <%= render 'layouts/header' %>
+    </header>
     <div class="d-flex justify-content-center mb-2 mt-2">
       <%= render "admin/searches/form" %>
       <%= render "public/searches/form" %>

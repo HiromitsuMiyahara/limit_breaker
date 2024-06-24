@@ -20,13 +20,17 @@
           <%= form_with model: @record, method: :patch, url: admin_record_path(@record.id), local: true do |f| %>
 
             <div class="form-group">
-              <%= f.label :date, "日付" %>
-              <%= f.date_field :date, class: "form-control" %>
+              <div>
+                <%= f.label :start_time, "トレーニング日" %>
+              </div>
+              <div>
+                <%= f.date_select :start_time, class: "form-control" %>
+              </div>
             </div>
 
             <div class="form-group">
               <%= f.label :part, "部位" %>
-              <%= f.text_field :part, class: "form-control" %>
+              <%= f.select :part, Record.part_selects.keys.map {|k| [I18n.t("enums.record.part_select.#{k}"),k]}, class: "form-control" %>
             </div>
 
             <div class="form-group">

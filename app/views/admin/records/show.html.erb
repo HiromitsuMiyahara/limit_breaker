@@ -17,8 +17,8 @@
       </thead>
       <tbody>
           <tr>
-            <td class="align-middle"><%= @record.date %></td>
-            <td class="align-middle"><%= @record.part %></td>
+            <td class="align-middle"><%= @record.start_time.strftime("%Y-%m-%d") %></td>
+            <td class="align-middle"><%= I18n.t("enums.record.part_select.#{@record.part}") %></td>
             <td class="align-middle"><%= @record.place %></td>
             <td class="align-middle"><%= @record.exercise %></td>
             <td class="align-middle"><%= @record.weight %></td>

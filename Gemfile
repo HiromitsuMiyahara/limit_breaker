@@ -57,7 +57,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #ログイン機能
 gem 'devise' 
 #カレンダー機能
-gem 'simple_calendar'
+gem 'simple_calendar', '~> 2.0'
 
 gem "enum_help"
 
@@ -71,3 +71,5 @@ end
 gem "net-smtp"
 gem "net-pop"
 gem "net-imap"
+
+gem "rails-i18n"

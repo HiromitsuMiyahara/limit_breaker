@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_07_075832) do
+ActiveRecord::Schema.define(version: 2024_06_21_140510) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -52,12 +52,21 @@ ActiveRecord::Schema.define(version: 2024_06_07_075832) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "favorites", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "post_id", null: false
-    t.integer "post_comment_id", null: false
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.datetime "start"
+    t.datetime "end"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "favoritable_type", null: false
+    t.integer "favoritable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["favoritable_type", "favoritable_id"], name: "index_favorites_on_favoritable"
   end
 
   create_table "post_comments", force: :cascade do |t|
@@ -78,13 +87,13 @@ ActiveRecord::Schema.define(version: 2024_06_07_075832) do
 
   create_table "records", force: :cascade do |t|
     t.integer "user_id"
-    t.date "date", null: false
-    t.string "part", null: false
-    t.string "place", null: false
-    t.string "exercise", null: false
+    t.string "part"
+    t.string "place"
+    t.string "exercise"
     t.integer "weight"
-    t.integer "rep", null: false
-    t.integer "set", null: false
+    t.integer "rep"
+    t.integer "set"
+    t.datetime "start_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
