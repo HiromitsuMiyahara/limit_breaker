@@ -1,0 +1,23 @@
+<div class="container">
+  <h2 class="text-center">いいねした投稿一覧</h2>
+    <div class="row">
+      <div class="col-md-2">
+        <% if @user == current_user %>
+          <%= render "admin/users/profile", user: current_user %>
+        <% else %>
+          <%= render "admin/users/profile", user: @user %>
+        <% end %>
+      </div>
+
+      <div class="col-md-10">
+        <% if @favorite_posts.present? %>
+          <%= render "admin/posts/posts", posts: @favorite_posts %>
+        <% else %>
+          <p>いいねした投稿はまだありません。</p>
+        <% end %>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+      <%= paginate @favorite_posts %>
+    </div>
+</div>

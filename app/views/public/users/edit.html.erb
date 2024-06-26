@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container">
   <div class="row justify-content-center">
 
     <!--バリデーションエラーメッセージ-->
@@ -22,7 +22,7 @@
             <div class="form-group">
               <%= f.label :profile_image, "プロフィール画像", class: 'form-label' %>
               <div class="mb-3">
-                <%= image_tag current_user.get_profile_image, class: 'img-thumbnail mb-2' %>
+                <%= image_tag current_user.get_profile_image(100,100), class: 'img-thumbnail mb-2' %>
                 <%= f.file_field :profile_image, class: 'form-control' %>
               </div>
             </div>

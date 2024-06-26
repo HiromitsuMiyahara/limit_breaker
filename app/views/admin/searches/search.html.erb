@@ -1,45 +1,51 @@
-<div class="container mt-5">
-  <!--検索対象モデルがUserの時 -->
-    <% if @range == "User" %>
-    <h2 class="text-center my-4">Users search for "<%= @word %>"</h2>
-      <%= render "admin/users/index", users: @users %>
+<div class="container-fluid">
 
-      <!--検索対象モデルがPostの時 -->
-    <% else %>
-      <h2>Posts search for "<%= @word %>"</h2>
-      <table class="table table-hover"><!--table-bordered：テーブルに枠線、table-hover：ホバー時に行を強調。-->
-          <thead class="thead-light"><!--テーブルヘッダーに薄い背景色-->
-            <tr>
-              <th>プロフィール</th>
-              <th>名前</th>
-              <th>投稿画像</th>
-              <th>内容</th>
-              <th>日付</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @posts.each do |post| %>
-            <tr>
-              <td class="text-center align-middle">
-                <%= link_to admin_user_path(post.user.id) do %>
-                  <%= image_tag post.user.get_profile_image(100,100), class: 'img-thumbnail' %>
-                <% end %>
-              </td>
-              <td class="align-middle"><%= post.user.name %></td>
-              <td class="text-center align-middle"><%= image_tag post.get_post_image, class: 'img-thumbnail' %></td>
-              <td class="align-middle"><%= post.body %></td>
-              <td class="align-middle">
-                <%= link_to admin_post_path(post.id) do %>
-                  <%= post.created_at.strftime('%Y/%m/%d') %>
-                <% end %>
-              </td>
-              <td class="align-middle">
-                <%= link_to "削除", post_path(post.id), method: :delete, class: 'btn btn-danger', data: { confirm: "投稿を削除しますか？" } %>
-              </td>
-            </tr>
+    <div class="d-flex justify-content-center mb-2 mt-2">
+      <%= render "admin/searches/form" %>
+    </div>
+
+    <h2 class="text-center">検索ワード "<%= @word %>"</h2>
+
+  <div class="row d-flex justify-content-center mb-2 mt-2">
+    <div class="col-md-8">
+      <% if @range == "User" %>
+        <%= render "admin/users/index", users: @users %>
+      <% else %>
+        <% @posts.each do |post| %>
+        <div class="card mx-auto mt-4 shadow-lg">
+          <div class="card-header">
+            <%= link_to admin_user_path(post.user) do %>
+              <%= image_tag post.user.get_profile_image(50,50), class: "rounded-circle" %>
             <% end %>
-          </tbody>
-      </table>
-    <% end %>
+            <%= post.user.name %>
+          </div>
+          <%= link_to admin_post_path(post), class: "post-link" do %>
+            <div class="card-body">
+              <div class="post-body">
+                <%= post.body %>
+              </div>
+              <div class="post-image">
+                <% if post.post_image.present? %>
+                  <%= image_tag post.post_image, class: "img-fluid" %>
+                <% end %>
+              </div>
+              <p class="text-muted"><%= post.created_at.strftime('%Y/%m/%d') %></p>
+              <%= link_to admin_post_path(post), class: "mr-3" do %>
+                <i class="fa-solid fa-comment fa-lg"></i>
+                <%= post.post_comments.count %>
+              <% end %>
+                <i class="fas fa-heart fa-lg" aria-hidden="true"></i>
+                <%= post.favorites.count %>
+              <div class="d-flex justify-content-end">
+                <%= link_to "編集", edit_admin_post_path(post.id), class: "btn btn-primary btn-sm mr-2" %>
+                <%= link_to "削除", admin_post_path(post.id), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "投稿を削除しますか？" } %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <% end %>
+        <%= paginate @posts %>
+      <% end %>
+    </div>
+  </div>
 </div>

@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: [:index, :show, :edit, :update] do
+      get 'favorites', to: 'users#favorites', on: :member
       resource :relationships
         get '/followers', to: 'relationships#followers'
         get '/followings', to: 'relationships#followings'
@@ -51,7 +52,7 @@ Rails.application.routes.draw do
       resources :post_comments, only: [:destroy]
     end
 
-    resources :records, only: [:index, :show, :edit, :update, :destroy]
+    resources :records, only: [:new, :index, :show, :edit, :update, :destroy]
 
     get '/search', to: 'searches#search'
 
@@ -62,6 +63,7 @@ Rails.application.routes.draw do
     get '/mypage', to: 'users#mypage'
     get '/users/unsubscribe', to: 'users#unsubscribe'
     patch '/users/withdraw', to: 'users#withdraw'
+
 
     get '/events', to: 'events#index'
 
@@ -77,6 +79,7 @@ Rails.application.routes.draw do
     resources :records
 
     resources :users, only: [:show, :edit, :update] do
+      get 'favorites', to: 'users#favorites', on: :member
       resource :relationships, only: [:create, :destroy]
         get '/followers', to: 'relationships#followers'
         get '/followings', to: 'relationships#followings'

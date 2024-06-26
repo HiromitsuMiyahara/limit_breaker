@@ -1,5 +1,4 @@
-<div class="user-profile-section">
-  <%= image_tag user.get_profile_image(100,100) %>
+<%= image_tag user.get_profile_image(100,100), class: "rounded-circle" %>
   <h2><%= user.name %></h2>
     <p><%= user.body %></p>
     <% unless user.guest_user? %>
@@ -11,7 +10,13 @@
     <p>身長: <%= user.height %> cm</p>
     <p>誕生年: <%= user.birth_year %> 年</p>
     <p>トレーニング歴: <%= user.experience %> 年</p>
-    <% unless user.guest_user? %> <!--ゲストログインの場合編集ボタンを出さない-->
+    <% unless user.guest_user? || user != current_user %> <!--ゲストログインの場合編集ボタンを出さない-->
       <%= link_to 'プロフィール編集', edit_user_path(user), class: 'btn btn-primary' %>
     <% end %>
-</div>
+    <div class="mt-2">
+      <%= render "public/relationships/btn", user: user %>
+    </div>
+    <div class="mt-2">
+      <%= link_to "いいねした投稿", favorites_user_path(user) %>
+    </div>
+

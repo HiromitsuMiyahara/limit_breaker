@@ -1,31 +1,42 @@
-<div class="container-fluid">
+<div class="card-list-container">
   <div class="row">
-  <% posts.each do |post| %>
-    <div class="col-md-10 mb-2">
-      <div class="card">
-        <div class="card-header">
-          <% if post.user = current_user %>
-            <%= link_to mypage_path do %>
-              <%= image_tag post.user.get_profile_image(50,50) %>
+    <% posts.each do |post| %>
+      <div class="col-md-10 mb-2">
+        <div class="card mx-auto mt-4 shadow-lg">
+          <div class="card-header">
+            <% if post.user == current_user %>
+              <%= link_to mypage_path do %>
+                <%= image_tag post.user.get_profile_image(50,50), class: "rounded-circle" %>
+              <% end %>
+            <% else %>
+              <%= link_to user_path(post.user) do %>
+                <%= image_tag post.user.get_profile_image(50,50), class: "rounded-circle" %>
+              <% end %>
             <% end %>
-          <% else %>
-            <%= link_to user_path(post.user) do %>
-              <%= image_tag post.user.get_profile_image(50,50) %>
-            <% end %>
+            <%= post.user.name %>
+          </div>
+          <%= link_to post_path(post), class: "post-link" do %>
+            <div class="card-body">
+              <%= post.body %>
+              <% if post.post_image.present? %>
+                <%= image_tag post.post_image, class: "img-fluid" %>
+              <% end %>
+              <p class="text-muted"><%= post.created_at.strftime('%Y/%m/%d') %></p>
+              <%= link_to post_path(post), class: "mr-3" do %>
+                <i class="fa-solid fa-comment fa-lg"></i>
+                <%= post.post_comments.count %>
+              <% end %>
+              <%= render "public/favorites/btn_post", post: post %>
+              <div class="d-flex justify-content-end">
+                <% if post.user == current_user %>
+                  <%= link_to "編集", edit_post_path(post.id), class: "btn btn-primary btn-sm mr-2" %>
+                  <%= link_to "削除", post_path(post.id), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "投稿を削除しますか？" } %>
+                <% end %>
+              </div>
+            </div>
           <% end %>
-          <%= post.user.name %>
-        </div>
-        <div class="card-body">
-          <%= post.body %>
-            <% if post.post_image.present? %>
-              <%= image_tag post.post_image, class: 'img-fluid' %>
-            <% end %>
-          <p class="text-muted"><%= post.created_at.strftime('%Y/%m/%d') %></p>
-          <%= link_to "編集", edit_post_path(post.id), class: "btn btn-primary btn-sm" %>
-          <%= link_to "削除", post_path(post.id), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "投稿を削除しますか？" } %>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
   </div>
 </div>

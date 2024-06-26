@@ -24,7 +24,14 @@ class Admin::UsersController < ApplicationController
       render :edit
     end
   end
-  
+
+  def favorites
+    @user = User.find(params[:id])
+    favorites = Favorite.where(user_id: @user.id, favoritable_type: "Post").pluck(:favoritable_id)
+    @favorite_posts = Post.where(id: favorites).page(params[:page])
+    @post = @user.posts
+  end
+
   private
 
   def user_params

@@ -5,8 +5,7 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @posts = current_user.posts
-    @records =current_user.records
+    @posts = current_user.posts.page(params[:page])
   end
 
   def edit
@@ -16,8 +15,7 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @posts = Post.where(user_id: @user.id)
-    @records = Record.where(user_id: @user.id)
+    @posts = Post.where(user_id: @user.id).page(params[:page])
   end
 
   def update
@@ -43,6 +41,14 @@ class Public::UsersController < ApplicationController
     flash[:notice] = "退会が完了しました"
     redirect_to root_path
   end
+
+  def favorites
+    @user = User.find(params[:id])
+    favorites = Favorite.where(user_id: @user.id, favoritable_type: "Post").pluck(:favoritable_id)
+    @favorite_posts = Post.where(id: favorites).page(params[:page])
+    @post = @user.posts
+  end
+
 
   private
 

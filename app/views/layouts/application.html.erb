@@ -17,11 +17,9 @@
     <header>
       <%= render 'layouts/header' %>
     </header>
-    <div class="d-flex justify-content-center mb-2 mt-2">
-      <%= render "admin/searches/form" %>
-      <%= render "public/searches/form" %>
+    <div class="d-flex justify-content-center">
+      <%= flash[:notice] %>
     </div>
-    <%= flash[:notice] %>
     <%= yield %>
   </body>
 </html>

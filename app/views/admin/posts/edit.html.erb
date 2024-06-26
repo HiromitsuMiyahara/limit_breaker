@@ -1,27 +1,31 @@
 <div class="container">
   <div class="row justify-content-center">
+    <!--バリデーションエラーメッセージ-->
+    <% if @post.errors.any? %>
+      <%= @post.errors.count %>件のエラーが発生しました
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
     <div class="col-md-8">
       <div class="card mb-3">
         <div class="card-header">
-          <h2 class="mb-0">投稿編集</h2>
+          <h2 class="text-center">投稿編集</h2>
         </div>
-  <!--バリデーションエラーメッセージ-->
-          <% if @post.errors.any? %>
-            <%= @post.errors.count %>件のエラーが発生しました
-            <ul>
-              <% @post.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-            </ul>
-            <% end %>
-
   <!--編集フォーム-->
         <div class="card-body">
           <%= form_with model: @post, url: admin_post_path(@post.id), method: :patch, local: true, class: 'container' do |f| %>
             <div class="form-group">
               <h4>画像</h4>
               <div class="mb-3">
-                <%= image_tag @post.get_post_image, class: 'img-thumbnail' %>
+                <% if @post.post_image.attached? %>
+                  <%= image_tag @post.post_image, class: 'img-thumbnail' %>
+                <% else %>
+                  <%= image_tag 'no_image' %>
+                <% end %>
                 <%= f.file_field :post_image, accept: "image/*", class: 'form-control-file' %> <!-- 画像ファイルのみ投稿許可する -->
               </div>
             </div>

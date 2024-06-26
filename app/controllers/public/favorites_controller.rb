@@ -1,7 +1,7 @@
 class Public::FavoritesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_favoritable
-
+  
   def create
     favorite = @favoritable.favorites.new(user: current_user)
     if favorite.save

@@ -1,16 +1,15 @@
-<div class="container-fluid">
-  <h2 class="text-center my-4">投稿一覧</h2>
-  <div class="row ml-0">
-
-
-    <div class="col-md-2 ml-0 fixed-profile">
+<div class="container">
+  <div class="row">
+    <div class="profile col-md-2">
       <%= render "public/users/profile", user: current_user %>
     </div>
 
-    <div class="col-md-10">
+    <div class="new-posts col-md-10">
+      <%= render "new", post: @post %>
       <%= render "public/posts/posts", posts: @posts %>
     </div>
-
-
+  </div>
+  <div class="d-flex justify-content-center mt-4">
+    <%= paginate @posts %>
   </div>
 </div>

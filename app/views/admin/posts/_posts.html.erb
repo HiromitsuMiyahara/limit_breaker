@@ -1,8 +1,8 @@
-<div class="container">
-  <div class="row d-flex justify-content-center">
-    <% @posts.each do |post| %>
-      <div class="col-md-8 mb-2">
-        <div class="card mx-auto mt-4 shadow-lg">
+<div class="card-list-container">
+  <div class="row">
+    <% posts.each do |post| %>
+      <div class="col-md-10">
+        <div class="card mx-auto mb-4 shadow-lg">
           <div class="card-header">
             <%= link_to admin_user_path(post.user) do %>
               <%= image_tag post.user.get_profile_image(50,50), class: "rounded-circle" %>
@@ -11,14 +11,10 @@
           </div>
           <%= link_to admin_post_path(post), class: "post-link" do %>
             <div class="card-body">
-              <div class="post-body">
-                <%= post.body %>
-              </div>
-              <div class="post-image">
-                <% if post.post_image.present? %>
-                  <%= image_tag post.post_image, class: "img-fluid" %>
-                <% end %>
-              </div>
+              <%= post.body %>
+              <% if post.post_image.present? %>
+                <%= image_tag post.post_image, class: "img-fluid" %>
+              <% end %>
               <p class="text-muted"><%= post.created_at.strftime('%Y/%m/%d') %></p>
               <%= link_to admin_post_path(post), class: "mr-3" do %>
                 <i class="fa-solid fa-comment fa-lg"></i>
@@ -35,8 +31,5 @@
         </div>
       </div>
     <% end %>
-  </div>
-  <div class="d-flex justify-content-center mt-4">
-    <%= paginate @posts %>
   </div>
 </div>

@@ -1,11 +1,11 @@
-<div class="container">
-  <h2 class="text-center my-4">投稿フォーム</h2>
-
+ <div class="card-list-container">
+   <div class="row">
+     <div class="col-md-10 mb-2">
   <!--バリデーションエラーメッセージ-->
-    <% if @post.errors.any? %>
-    <%= @post.errors.count %>件のエラーが発生しました
+    <% if post.errors.any? %>
+    <%= post.errors.count %>件のエラーが発生しました
     <ul>
-      <% @post.errors.full_messages.each do |message| %>
+      <% post.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
@@ -24,4 +24,6 @@
       <%= f.submit '投稿', class: "btn btn-primary" %>
     </div>
     <% end %>
+    </div>
+  </div>
 </div>

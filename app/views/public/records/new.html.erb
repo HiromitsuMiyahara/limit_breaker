@@ -1,0 +1,27 @@
+<div class="container">
+  <h2 class="text-center">筋トレ記録一覧</h2>
+  <!--バリデーションエラーメッセージ-->
+    <% if @record.errors.any? %>
+    <%= @record.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <% end %>
+
+  <div class="row p-0">
+    <div class="col-md-2">
+      <%= render "public/users/profile", user: current_user %>
+    </div>
+
+    <div class="col-md-8 ">
+      <div class="simple-calendar">
+		    <%= render "simple_calendar/simple_calendar", user: current_user %>
+		  </div>
+  	</div>
+  <!--筋トレ記録入力欄-->
+  	<div class="col-md-2 p-0">
+      <%= render "form", record: @record %>
+    </div>
+</div>

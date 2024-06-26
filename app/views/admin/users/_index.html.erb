@@ -1,5 +1,5 @@
 <table class="table table-hover">
-  <% @users.each do |user| %>
+  <% users.each do |user| %>
     <tr>
       <td class="align-middle"><%= link_to user.name, admin_user_path(user.id) %></td>
       <td class="align-middle"><%= user.email %></td>
@@ -13,3 +13,4 @@
     </tr>
   <% end %>
 </tbody>
+<%= paginate users %>

@@ -1,58 +1,45 @@
-<div class="container mt-5">
-  <h2 class="text-center my-4">投稿詳細</h2><!--中央揃え,my-4で上下のマージン-->
+<div class="container">
+  <div class="row">
 
-  <table class="table table-hover"><!--table-bordered：テーブルに枠線-->
-    <thead class="thead-light"><!--テーブルヘッダーに薄い背景色-->
-    <tr>
-      <th>プロフィール</th>
-      <th>名前</th>
-      <th>投稿画像</th>
-      <th>内容</th>
-      <th>日付</th>
-      <th colspan="2"></th>
-    </tr>
-    </thead>
+    <div class="col-md-2">
+      <%= render "admin/users/profile", user: @user %>
+    </div>
 
-    <tbody>
-      <tr>
-        <td class="text-center align-middle"><!--要素を中央揃え,セル内のテキストを中央に揃える。-->
-          <%= image_tag @post.user.get_profile_image, class: 'img-thumbnail' %><!--画像に枠線と余白を追加し、サムネイル風に表示-->
-        </td>
-        <td class="align-middle">
-          <%= link_to admin_user_path(@post.user.id) do %>
-            <%= @post.user.name %>
+    <div class="col-md-8 mb-2">
+      <div class="card mx-auto mt-4 shadow-lg">
+        <div class="card-header">
+          <%= link_to admin_user_path(@post.user) do %>
+            <%= image_tag @post.user.get_profile_image(50,50), class: "rounded-circle" %>
           <% end %>
-        </td>
-        <td class="text-center align-middle"><%= image_tag @post.get_post_image, class: 'img-fluid' %></td><!--要素を中央揃え,セル内のテキストを中央に揃える。画像を親要素にフィット-->
-        <td class="align-middle"><%= @post.body %></td><!--セル内のテキストを中央に揃える。-->
-        <td class="align-middle"><%= @post.created_at.strftime('%Y/%m/%d') %></td>
-        <td class="align-middle"><!--セル内のテキストを中央に揃える。-->
-          <%= link_to "編集", edit_admin_post_path(@post.id), class: "btn btn-primary" %>
-        </td>
-        <td class="align-middle">
-          <%= link_to "削除", admin_post_path(@post.id), method: :delete, class: "btn btn-danger", data: { confirm: "投稿を削除しますか？" } %>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          <%= @post.user.name %>
+        </div>
 
-  <div class="comments mt-4">
-    <h3>コメント</h3>
-
-    <ul class="list-unstyled">
-      <% @post.post_comments.each do |post_comment| %>
-        <li class="media my-3">
-          <div class="media-body">
-            <h5 class="mt-0 mb-1">
-              <%= link_to admin_user_path(post_comment.user.id) do %>
-                <%= post_comment.user.name %>
-              <% end %>
-                <%= link_to "削除", admin_post_post_comment_path(@post, post_comment), method: :delete, data: { confirm: "コメントを削除しますか？" }, class: "btn btn-sm btn-danger float-right" %>
-            </h5>
-            <%= post_comment.comment%>
+        <div class="card-body">
+          <div class="post-body">
+            <%= @post.body %>
           </div>
-        </li>
-      <% end %>
-    </ul>
+          <div class="post-image">
+            <% if @post.post_image.present? %>
+              <%= image_tag @post.post_image, class: "img-fluid" %>
+            <% end %>
+          </div>
+          <p class="text-muted"><%= @post.created_at.strftime('%Y/%m/%d') %></p>
+          <%= link_to admin_post_path(@post), class: "mr-3" do %>
+            <i class="fa-solid fa-comment fa-lg"></i>
+            <%= @post.post_comments.count %>
+          <% end %>
+          <i class="fas fa-heart fa-lg" aria-hidden="true"></i>
+          <%= @post.favorites.count %>
+          <div class="d-flex justify-content-end">
+            <%= link_to "編集", edit_admin_post_path(@post.id), class: "btn btn-primary btn-sm mr-2" %>
+            <%= link_to "削除", admin_post_path(@post.id), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "投稿を削除しますか？" } %>
+          </div>
+        </div>
+      </div>
+        <div>
+          <%= render "admin/post_comments/list", post: @post, post_comments: @post_comments %>
+        </div>
+    </div>
   </div>
 </div>
+

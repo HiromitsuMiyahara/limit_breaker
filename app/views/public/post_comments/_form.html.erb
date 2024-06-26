@@ -1,0 +1,9 @@
+<%= form_with model: [@post, @post_comment], local: true do |f| %>
+<div class="form-group">
+  <%= f.label :comment, "コメントを追加" %>
+  <%= f.text_area :comment, class: "form-control", placeholder: "コメントを入力してください" %>
+</div>
+<div class="form-group">
+  <%= f.submit "コメントを投稿", class: "btn btn-primary" %>
+</div>
+<% end %>

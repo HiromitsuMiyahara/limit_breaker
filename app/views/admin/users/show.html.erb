@@ -1,88 +1,11 @@
- <div class="container">
+<div class="container">
     <div class="row">
       <!-- ユーザープロフィール表示 -->
-      <div class="col-md-3">
-        <div class="user-profile-section">
-          <%= image_tag @user.get_profile_image %>
-          <h2><%= @user.name %></h2>
-          <p><%= @user.body %></p>
-          <p>フォロー数:<%= link_to @user.followings.count, admin_user_followings_path(@user) %></p>
-          <p>フォロワー数:<%= link_to @user.followers.count, admin_user_followers_path(@user) %></p>
-          <p>性別: <%= I18n.t("enums.user.gender.#{@user.gender}") %></p>
-          <p>体重: <%= @user.weight %> kg</p>
-          <p>身長: <%= @user.height %> cm</p>
-          <p>誕生年: <%= @user.birth_year %> 年</p>
-          <p>トレーニング歴: <%= @user.experience %> 年</p>
-          <%= link_to 'プロフィール編集', edit_admin_user_path(@user), class: 'btn btn-primary' %>
-        </div>
+      <div class="col-md-2">
+        <%= render "profile", user: @user %>
       </div>
-
-      <div class="col-md-9">
-        <div class="user-post-section">
-          <table class="table table-hover mt-3"><!--table-bordered：テーブルに枠線-->
-            <thead class="thead-light"><!--テーブルヘッダーに薄い背景色-->
-              <tr>
-                <th>投稿画像</th>
-                <th>内容</th>
-                <th>日付</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% @posts.each do |post| %>
-              <tr>
-                <td class="text-center align-middle"><%= image_tag post.get_post_image, class: 'img-fluid' %></td><!--要素を中央揃え,セル内のテキストを中央に揃える。画像を親要素にフィット-->
-                <td class="align-middle"><%= post.body %></td><!--セル内のテキストを中央に揃える。-->
-                <td class="align-middle">
-                  <%= link_to admin_post_path(post.id) do %>
-                    <%= post.created_at.strftime('%Y/%m/%d') %></td><!--セル内のテキストを中央に揃える。-->
-                  <% end %>
-                <td class="align-middle"><!--セル内のテキストを中央に揃える。-->
-                  <%= link_to "編集", edit_admin_post_path(post.id), class: "btn btn-primary" %>
-                </td>
-                <td class="align-middle"><!--セル内のテキストを中央に揃える。-->
-                  <%= link_to "削除", admin_post_path(post.id), method: :delete, class: "btn btn-danger", data: { confirm: "投稿を削除しますか？" } %>
-                </td>
-              </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div  class="col-md-12 mt-5">
-        <div class="user-record-section">
-          <table class="table table-hover">
-            <thead class="thead-light">
-              <tr>
-                <th>日付</th>
-                <th>部位</th>
-                <th>場所</th>
-                <th>エクササイズ</th>
-                <th>重量</th>
-                <th>レップ数</th>
-                <th>セット数</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @records.each do |record| %>
-                <tr>
-                  <td class="align-middle"><%= link_to record.start_time.strftime("%Y-%m-%d"), admin_record_path(record.id) %></td>
-                  <td class="align-middle"><%= I18n.t("enums.record.part_select.#{record.part}") %></td>
-                  <td class="align-middle"><%= record.place %></td>
-                  <td class="align-middle"><%= record.exercise %></td>
-                  <td class="align-middle"><%= record.weight %></td>
-                  <td class="align-middle"><%= record.rep %></td>
-                  <td class="align-middle"><%= record.set %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
+      <div class="col-md-10">
+        <%= render "admin/posts/posts", posts: @posts %>
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@ class Post < ApplicationRecord
   has_many :post_comments, dependent: :destroy
    #いいね機能をつけるためポリモーフィックを導入
   has_many :favorites, as: :favoritable, dependent: :destroy
-  
+
   has_one_attached :post_image
 
   validates :body, presence: true

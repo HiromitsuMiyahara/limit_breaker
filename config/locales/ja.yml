@@ -35,6 +35,8 @@ ja:
         exercise: トレーニング名
         rep: レップ数
         set: セット数
+      post_comment:
+        comment: コメント
   date:
     abbr_day_names:
     - 日

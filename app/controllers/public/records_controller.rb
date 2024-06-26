@@ -2,9 +2,12 @@ class Public::RecordsController < ApplicationController
   before_action :authenticate_user!
   before_action :recorded_user, only: [:edit, :update]
 
-  def index
+  def new
     @record = Record.new
     #current_user.idの全ての記録を返す
+  end
+
+  def index
     @records = Record.where(user_id: current_user.id).order(start_time: "desc")
   end
 
@@ -18,9 +21,9 @@ class Public::RecordsController < ApplicationController
     @record.user_id = current_user.id # ログインしているユーザーのIDを設定
     if @record.save
       flash[:notice] = 'トレーニング記録が保存されました。'
-      redirect_to records_path
+      redirect_to new_record_path
     else
-      render :index
+      render :new
     end
   end
 
@@ -42,9 +45,9 @@ class Public::RecordsController < ApplicationController
     @record = Record.find(params[:id])
     if @record.destroy
       flash[:notice] = '記録を削除しました。'
-      redirect_to records_path
+      redirect_to new_record_path
     else
-      render :index
+      render :new
     end
   end
 
