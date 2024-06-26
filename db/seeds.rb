@@ -30,13 +30,4 @@ dolph = User.find_or_create_by!(email: ENV['TEST_EMAIL3']) do |user|
   user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user3.jpg"), filename:"sample-user3.jpg")
 end
 
-10.times do |i|
-  Record.create!(
-    title: "サンプルイベント#{i+1}",
-    start: Time.zone.now + i.days,
-    end: Time.zone.now + i.days + 1.hour
-  )
-end
-
-
 puts "seedの実行が完了しました"
