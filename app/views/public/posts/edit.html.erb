@@ -24,7 +24,7 @@
                 <% if @post.post_image.attached? %>
                   <%= image_tag @post.post_image, class: 'img-thumbnail' %>
                 <% else %>
-                  <%= image_tag 'no_image' %>
+                  <%= image_tag 'no_image.jpg' %>
                 <% end %>
                 <%= f.file_field :post_image, accept: "image/*", class: 'form-control-file' %> <!-- 画像ファイルのみ投稿許可する -->
               </div>
