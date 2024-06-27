@@ -37,6 +37,7 @@ class Public::RecordsController < ApplicationController
       flash[:notice] = '記録を編集しました。'
       redirect_to record_path(@record.id)
     else
+      flash.now[:notice] = '編集に失敗しました。'
       render :edit
     end
   end
@@ -47,6 +48,7 @@ class Public::RecordsController < ApplicationController
       flash[:notice] = '記録を削除しました。'
       redirect_to new_record_path
     else
+      flash.now[:notice] = '削除に失敗しました。'
       render :new
     end
   end

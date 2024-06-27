@@ -27,7 +27,7 @@ class Public::PostsController < ApplicationController
       redirect_to posts_path
     else
       @posts = Post.where(user_id: current_user.following_ids + [current_user.id]).order(created_at: :desc).page(params[:page])
-      flash[:notice] = '投稿が失敗しました。'
+      flash.now[:notice] = '投稿が失敗しました。'
       render :index
     end
   end
@@ -42,7 +42,7 @@ class Public::PostsController < ApplicationController
       flash[:notice] = '投稿を編集しました。'
       redirect_to post_path(@post.id)
     else
-      flash[:notice] = '編集が失敗しました。'
+      flash.now[:notice] = '編集が失敗しました。'
       render :edit
     end
   end

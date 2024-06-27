@@ -21,6 +21,7 @@ class Admin::PostsController < ApplicationController
       flash[:notice] = '投稿を編集しました。'
       redirect_to admin_post_path(@post.id)
     else
+      flash.now[:notice] = '投稿の編集が失敗しました。'
       render :edit
     end
   end

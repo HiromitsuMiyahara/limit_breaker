@@ -25,6 +25,7 @@ class Public::UsersController < ApplicationController
       flash[:notice] = 'プロフィールの編集が完了しました。'
       redirect_to mypage_path
     else
+      flash.now[:notice] = 'プロフィールの編集が失敗しました。'
       render :edit
     end
   end

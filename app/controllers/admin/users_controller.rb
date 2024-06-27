@@ -21,6 +21,7 @@ class Admin::UsersController < ApplicationController
       flash[:notice] = 'プロフィールの編集が完了しました。'
       redirect_to admin_user_path(@user)
     else
+      flash.now[:notice] = 'プロフィールの編集が失敗しました。'
       render :edit
     end
   end
