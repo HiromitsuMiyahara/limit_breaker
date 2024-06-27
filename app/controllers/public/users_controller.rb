@@ -5,7 +5,7 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @posts = current_user.posts.page(params[:page])
+    @posts = current_user.posts.page(params[:page]).order(created_at: :desc).page(params[:page])
   end
 
   def edit

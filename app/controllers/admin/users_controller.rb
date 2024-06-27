@@ -2,12 +2,12 @@ class Admin::UsersController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @users = User.non_guest.page(params[:page]) #non_guestを付けて、guestuserの表示を除外
+    @users = User.non_guest.page(params[:page]).order(created_at: :desc).page(params[:page]) #non_guestを付けて、guestuserの表示を除外
   end
 
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts.page(params[:page])
+    @posts = @user.posts.page(params[:page]).order(created_at: :desc).page(params[:page])
     @records = Record.where(user_id: @user.id)
   end
 
