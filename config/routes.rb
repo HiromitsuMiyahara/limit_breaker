@@ -1,26 +1,8 @@
 Rails.application.routes.draw do
-  namespace :public do
-    get 'events/index'
-  end
-  namespace :admin do
-    get 'records/index'
-    get 'records/show'
-    get 'records/update'
-    get 'records/destroy'
-  end
-  namespace :admin do
-    get 'searches/search'
-  end
-  namespace :admin do
-    get 'relationships/followings'
-    get 'relationships/followers'
-  end
-  namespace :admin do
-    get 'post_comments/destroy'
-  end
+
   # 利用者用
   # URL /users/sign_in ...
-  devise_for :users, controllers: {
+  devise_for :users, skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
@@ -63,9 +45,6 @@ Rails.application.routes.draw do
     get '/mypage', to: 'users#mypage'
     get '/users/unsubscribe', to: 'users#unsubscribe'
     patch '/users/withdraw', to: 'users#withdraw'
-
-
-    get '/events', to: 'events#index'
 
     get '/search', to: 'searches#search'
 
