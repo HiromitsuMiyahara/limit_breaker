@@ -8,6 +8,6 @@ class Record < ApplicationRecord
   validates :exercise, presence: true
   validates :rep, presence: true
   validates :set, presence: true
-  
-  enum part_select: { chest: 0, back: 1, shoulder: 2, arm: 3, stomach: 4, leg: 5}
+
+  enum part_select: { chest: 0, back: 1, shoulder: 2, arm: 3, stomach: 4, leg: 5 }
 end

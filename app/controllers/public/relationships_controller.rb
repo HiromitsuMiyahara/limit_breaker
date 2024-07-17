@@ -14,14 +14,14 @@ class Public::RelationshipsController < ApplicationController
   def create
     user = User.find(params[:user_id])
     current_user.follow(user)
-    flash[:notice] = 'フォローしました。'
+    flash[:notice] = "フォローしました。"
     redirect_to request.referer
   end
 
   def destroy
     user = User.find(params[:user_id])
     current_user.unfollow(user)
-    flash[:notice] = 'フォローを解除しました。'
-    redirect_to  request.referer
+    flash[:notice] = "フォローを解除しました。"
+    redirect_to request.referer
   end
 end

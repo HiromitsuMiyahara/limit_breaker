@@ -13,19 +13,19 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true
 
-  #性別をプロフィールに表示させる。
-  enum gender: { man: 0, woman: 1}
+  # 性別をプロフィールに表示させる。
+  enum gender: { man: 0, woman: 1 }
 
-  #検索機能
+  # 検索機能
   def self.looks(search, word)
     if search == "perfect_match"
       @user = User.where("name LIKE?", "#{word}")
     elsif search == "forward_match"
-      @user = User.where("name LIKE?","#{word}%")
+      @user = User.where("name LIKE?", "#{word}%")
     elsif search == "backward_match"
-      @user = User.where("name LIKE?","%#{word}")
+      @user = User.where("name LIKE?", "%#{word}")
     elsif search == "partial_match"
-      @user = User.where("name LIKE?","%#{word}%")
+      @user = User.where("name LIKE?", "%#{word}%")
     else
       @user = User.all
     end
@@ -71,23 +71,23 @@ class User < ApplicationRecord
   # 画像がなければno_imeageが適用されるよう設定
   def get_profile_image(width, height)
     unless profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image.jpg')
-      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+      file_path = Rails.root.join("app/assets/images/no_image.jpg")
+      profile_image.attach(io: File.open(file_path), filename: "default-image.jpg", content_type: "image/jpeg")
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
-  #ログイン時に退会済みのユーザーが同じアカウントでログイン出来ないようにする。
+  # ログイン時に退会済みのユーザーが同じアカウントでログイン出来ないようにする。
   def active_for_authentication?
     super && (is_active == true)
   end
 
-  #sessions_controller.rbで記述したUser.guestのguestメソッドを定義
+  # sessions_controller.rbで記述したUser.guestのguestメソッドを定義
   GUEST_USER_EMAIL = "guest@example.com"
 
   def self.guest
-    find_or_create_by!(email: GUEST_USER_EMAIL) do |user| #データの検索と作成を自動的に判断して処理を行う
-      user.password = SecureRandom.urlsafe_base64 #ランダムな文字列を生成するRubyのメソッドの一種
+    find_or_create_by!(email: GUEST_USER_EMAIL) do |user| # データの検索と作成を自動的に判断して処理を行う
+      user.password = SecureRandom.urlsafe_base64 # ランダムな文字列を生成するRubyのメソッドの一種
       user.name = "guestuser"
     end
   end
@@ -95,6 +95,4 @@ class User < ApplicationRecord
   def guest_user?
     email == GUEST_USER_EMAIL
   end
-
-
 end

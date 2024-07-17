@@ -18,10 +18,10 @@ class Admin::PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      flash[:notice] = '投稿を編集しました。'
+      flash[:notice] = "投稿を編集しました。"
       redirect_to admin_post_path(@post.id)
     else
-      flash.now[:notice] = '投稿の編集が失敗しました。'
+      flash.now[:notice] = "投稿の編集が失敗しました。"
       render :edit
     end
   end
@@ -30,10 +30,10 @@ class Admin::PostsController < ApplicationController
     @post = Post.find(params[:id])
     @user = @post.user
     if @post.destroy
-      flash[:notice] = '投稿を削除しました。'
+      flash[:notice] = "投稿を削除しました。"
       redirect_to admin_user_path(@user)
     else
-      flash.now[:notice] = '削除に失敗しました。'
+      flash.now[:notice] = "削除に失敗しました。"
       render :show
     end
   end

@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @users = User.non_guest.page(params[:page]).order(created_at: :desc).page(params[:page]) #non_guestを付けて、guestuserの表示を除外
+    @users = User.non_guest.page(params[:page]).order(created_at: :desc).page(params[:page]) # non_guestを付けて、guestuserの表示を除外
   end
 
   def show
@@ -16,12 +16,12 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-     @user = User.find(params[:id])
+    @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:notice] = 'プロフィールの編集が完了しました。'
+      flash[:notice] = "プロフィールの編集が完了しました。"
       redirect_to admin_user_path(@user)
     else
-      flash.now[:notice] = 'プロフィールの編集が失敗しました。'
+      flash.now[:notice] = "プロフィールの編集が失敗しました。"
       render :edit
     end
   end
@@ -34,8 +34,7 @@ class Admin::UsersController < ApplicationController
   end
 
   private
-
-  def user_params
-    params.require(:user).permit(:name, :body, :weight, :height, :experience, :birth_year, :gender, :profile_image, :email, :is_active)
-  end
+    def user_params
+      params.require(:user).permit(:name, :body, :weight, :height, :experience, :birth_year, :gender, :profile_image, :email, :is_active)
+    end
 end

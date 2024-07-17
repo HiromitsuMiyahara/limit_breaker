@@ -28,8 +28,8 @@ class Admin::SessionsController < Devise::SessionsController
   # end
 
   protected
-  # If you have extra params to permit, append them to the sanitizer.
-  def configure_sign_in_params
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:email])
-  end
+    # If you have extra params to permit, append them to the sanitizer.
+    def configure_sign_in_params
+      devise_parameter_sanitizer.permit(:sign_in, keys: [:email])
+    end
 end

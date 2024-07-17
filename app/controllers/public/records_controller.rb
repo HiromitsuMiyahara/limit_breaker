@@ -4,7 +4,7 @@ class Public::RecordsController < ApplicationController
 
   def new
     @record = Record.new
-    #current_user.idの全ての記録を返す
+    # current_user.idの全ての記録を返す
   end
 
   def index
@@ -20,7 +20,7 @@ class Public::RecordsController < ApplicationController
     @record = Record.new(record_params)
     @record.user_id = current_user.id # ログインしているユーザーのIDを設定
     if @record.save
-      flash[:notice] = 'トレーニング記録が保存されました。'
+      flash[:notice] = "トレーニング記録が保存されました。"
       redirect_to new_record_path
     else
       render :new
@@ -34,10 +34,10 @@ class Public::RecordsController < ApplicationController
   def update
     @record = Record.find(params[:id])
     if @record.update(record_params)
-      flash[:notice] = '記録を編集しました。'
+      flash[:notice] = "記録を編集しました。"
       redirect_to record_path(@record.id)
     else
-      flash.now[:notice] = '編集に失敗しました。'
+      flash.now[:notice] = "編集に失敗しました。"
       render :edit
     end
   end
@@ -45,24 +45,23 @@ class Public::RecordsController < ApplicationController
   def destroy
     @record = Record.find(params[:id])
     if @record.destroy
-      flash[:notice] = '記録を削除しました。'
+      flash[:notice] = "記録を削除しました。"
       redirect_to new_record_path
     else
-      flash.now[:notice] = '削除に失敗しました。'
+      flash.now[:notice] = "削除に失敗しました。"
       render :new
     end
   end
 
   private
-
-  def record_params
-    params.require(:record).permit(:start_time, :part, :place, :exercise, :weight, :rep, :set)
-  end
-
-  def recorded_user
-    @record = Record.find(params[:id])
-    unless @record.user == current_user
-      redirect_to records_path
+    def record_params
+      params.require(:record).permit(:start_time, :part, :place, :exercise, :weight, :rep, :set)
     end
-  end
+
+    def recorded_user
+      @record = Record.find(params[:id])
+      unless @record.user == current_user
+        redirect_to records_path
+      end
+    end
 end

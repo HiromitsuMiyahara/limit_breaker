@@ -14,17 +14,17 @@ class Public::SessionsController < Devise::SessionsController
     new_user_session_path
   end
 
-  #ゲストでサインイン
+  # ゲストでサインイン
   def guest_sign_in
     user = User.guest
 
-      guest_user = user
-      #ゲストユーザーが作成した投稿を削除。any?メソッドは、レビューが存在する場合にtrueを返す。
-      guest_user.posts.each { |post| post.destroy } if guest_user.posts.any?
-      # ゲストユーザーが作成したコメントを削除
-      guest_user.post_comments.each { |comment| comment.destroy } if guest_user.post_comments.any?
-      # ゲストユーザーが作成した筋トレ記録を削除
-      guest_user.records.each { |record| record.destroy } if guest_user.records.any?
+    guest_user = user
+    # ゲストユーザーが作成した投稿を削除。any?メソッドは、レビューが存在する場合にtrueを返す。
+    guest_user.posts.each { |post| post.destroy } if guest_user.posts.any?
+    # ゲストユーザーが作成したコメントを削除
+    guest_user.post_comments.each { |comment| comment.destroy } if guest_user.post_comments.any?
+    # ゲストユーザーが作成した筋トレ記録を削除
+    guest_user.records.each { |record| record.destroy } if guest_user.records.any?
 
 
     sign_in user
@@ -53,26 +53,25 @@ class Public::SessionsController < Devise::SessionsController
   # end
 
   protected
+    # If you have extra params to permit, append them to the sanitizer.
+    def configure_sign_in_params
+      devise_parameter_sanitizer.permit(:sign_in, keys: [:email])
+    end
+    # 退会したアカウントでログインさせないようにする
+    def user_state
+      user = User.find_by(email: params[:user][:email])
 
-  # If you have extra params to permit, append them to the sanitizer.
-  def configure_sign_in_params
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:email])
-  end
-  # 退会したアカウントでログインさせないようにする
-  def user_state
-  user = User.find_by(email: params[:user][:email])
-
-    if user
-      if user.valid_password?(params[:user][:password])
-        if user.is_active == false
-          flash[:notice] = "退会済みです。再度ご登録をしてご利用ください。"
-          redirect_to new_user_registration_path
+      if user
+        if user.valid_password?(params[:user][:password])
+          if user.is_active == false
+            flash[:notice] = "退会済みです。再度ご登録をしてご利用ください。"
+            redirect_to new_user_registration_path
+          end
+        else
+          flash.now[:notice] = "メールアドレスまたはパスワードが正しくありません。"
         end
       else
         flash.now[:notice] = "メールアドレスまたはパスワードが正しくありません。"
       end
-    else
-      flash.now[:notice] = "メールアドレスまたはパスワードが正しくありません。"
     end
-  end
 end
