@@ -9,10 +9,17 @@
         <ul class="navbar-nav ml-auto">
           <% if user_signed_in? %>
             <!-- ユーザーがサインイン中の場合 -->
-            <li class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="nav-item text-center">
+              <%= link_to about_path, class: "nav-link text-light btn" do %>
+                <i class="fa-solid fa-diagram-project"></i> About
+                <p class="mb-0" style="font-size: 10px;">アバウト</p>
+              <% end %>
+            </li>
+            <li class="dropdown nav-item text-center" style="color: white;">
+              <button class="btn nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa-solid fa-bell fa-lg"></i>
-                <span class="badge badge-danger"><%= current_user.notifications.where(read: false).count %></span>
+                <span class="badge badge-danger"><%= current_user.notifications.where(read: false).count %></span>Notice
+                <p class="mb-0" style="font-size: 10px;">通知</p>
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <% if current_user.notifications.where(read: false).any? %>
@@ -25,68 +32,82 @@
                 <% end %>
               </div>
             </li>
-            <li class="nav-item">
-              <%= link_to  posts_path, class: 'nav-link text-light' do %>
-                <i class="fa-solid fa-book-open fa-lg"></i>
+            <li class="nav-item text-center">
+              <%= link_to  posts_path, class: 'nav-link text-light btn' do %>
+                <i class="fa-solid fa-book-open fa-lg"></i>Posts
+                <p class="mb-0" style="font-size: 10px;">投稿一覧</p>
               <% end %>
             </li>
-            <li class="nav-item">
-              <%= link_to mypage_path, class: 'nav-link text-light' do %>
-                <i class="fa-solid fa-house fa-lg"></i>
+            <li class="nav-item text-center">
+              <%= link_to mypage_path, class: 'nav-link text-light btn' do %>
+                <i class="fa-solid fa-user fa-lg"></i>MyPage
+                <p class="mb-0" style="font-size: 10px;">マイページ</p>
               <% end %>
             </li>
-            <li class="nav-item">
-              <%= link_to  search_path, class: 'nav-link text-light' do %>
-                <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+            <li class="nav-item text-center">
+              <%= link_to  search_path, class: 'nav-link text-light btn' do %>
+                <i class="fa-solid fa-magnifying-glass fa-lg"></i>Search
+                <p class="mb-0" style="font-size: 10px;">検索</p>
               <% end %>
             </li>
-            <li class="nav-item">
-              <%= link_to  new_record_path, class: 'nav-link text-light' do %>
-                <i class="fa-solid fa-dumbbell fa-lg "></i>
+            <li class="nav-item text-center">
+              <%= link_to  new_record_path, class: 'nav-link text-light btn' do %>
+                <i class="fa-solid fa-dumbbell fa-lg "></i>Training
+                <p class="mb-0" style="font-size: 10px;">筋トレ</p>
               <% end %>
             </li>
-            <li class="nav-item">
-              <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
-                <i class="fa-solid fa-right-from-bracket fa-lg"></i>
+            <li class="nav-item text-center">
+              <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light btn' do %>
+                <i class="fa-solid fa-right-from-bracket fa-lg"></i>LogOut
+                <p class="mb-0" style="font-size: 10px;">ログアウト</p>
               <% end %>
             </li>
 
           <% elsif admin_signed_in? %>
             <!-- 管理者がサインインしている場合 -->
-            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
-              <%= link_to  admin_posts_path, class: 'nav-link text-light' do %>
-                <i class="fa-solid fa-book-open fa-lg"></i>
+            <li class="nav-item text-center"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to  admin_posts_path, class: 'nav-link text-light btn' do %>
+                <i class="fa-solid fa-book-open fa-lg"></i>Posts
+                <p class="mb-0" style="font-size: 10px;">投稿一覧</p>
               <% end %>
             </li>
-            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
-              <%= link_to admin_users_path, class: 'nav-link text-light' do %>
-                <i class="fa-solid fa-user fa-lg"></i>
+            <li class="nav-item text-center"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to admin_users_path, class: 'nav-link text-light btn' do %>
+                <i class="fa-solid fa-user fa-lg"></i>Users
+                <p class="mb-0" style="font-size: 10px;">ユーザー一覧</p>
               <% end %>
             </li>
-            <li class="nav-item">
-              <%= link_to  admin_search_path, class: 'nav-link text-light' do %>
-                <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+            <li class="nav-item text-center">
+              <%= link_to  admin_search_path, class: 'nav-link text-light btn' do %>
+                <i class="fa-solid fa-magnifying-glass fa-lg"></i>Search
+                <p class="mb-0" style="font-size: 10px;">検索</p>
               <% end %>
             </li>
-            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
-              <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>
-                <i class="fa-solid fa-right-from-bracket fa-lg"></i>
+            <li class="nav-item text-center"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light btn' do %>
+                <i class="fa-solid fa-right-from-bracket fa-lg"></i>LogOut
+                <p class="mb-0" style="font-size: 10px;">ログアウト</p>
               <% end %>
             </li>
 
           <% else %>
             <!-- サインインしていない場合 -->
-            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
-              <%= link_to 'About', about_path, class: "nav-link text-light" %><!--text-light は、テキストを薄い色に変更-->
-            </li>
-            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
-              <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
-                <i class="fa-solid fa-user-plus fa-lg"></i>
+            <li class="nav-item text-center">
+              <%= link_to about_path, class: "nav-link text-light btn" do %>
+                <i class="fa-solid fa-diagram-project"></i> About
+                <p class="mb-0" style="font-size: 10px;">アバウト</p>
               <% end %>
             </li>
-            <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
-              <%= link_to new_user_session_path, class: 'nav-link text-light' do %><!--text-light は、テキストを薄い色に変更-->
-                <i class="fa-solid fa-right-to-bracket fa-lg"></i>
+            <li class="nav-item text-center"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to new_user_registration_path, class: 'nav-link text-light btn' do %>
+                <i class="fa-solid fa-user-plus fa-lg"></i>SignUp
+                <p class="mb-0" style="font-size: 10px;">新規登録</p>
+              <% end %>
+            </li>
+            <li class="nav-item text-center"><!--nav-itemで間隔や配置が適切に調整-->
+              <%= link_to new_user_session_path, class: 'nav-link text-light btn' do %><!--text-light は、テキストを薄い色に変更-->
+                <i class="fa-solid fa-right-to-bracket fa-lg"></i>LogIn
+                <p class="mb-0" style="font-size: 10px;">ログイン</p>
               <% end %>
             </li>
           <% end %>

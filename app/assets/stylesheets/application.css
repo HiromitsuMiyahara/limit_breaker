@@ -28,6 +28,9 @@ header {
   background-color: rgba(0, 0, 0, 0.75);
   color: white;
 }
+header:hover {
+  color: white;
+}
 
 /* ヘッダー下のコンテンツの位置調整 */
 body {
