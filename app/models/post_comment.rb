@@ -12,4 +12,13 @@ class PostComment < ApplicationRecord
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
+
+  # 投稿にコメントされた場合の通知
+  after_create :create_notification
+
+  private
+  def create_notification
+    # コメントされた投稿の所有者に通知を送る
+    Notification.create(user_id: post.user.id, notifiable: self)
+  end
 end

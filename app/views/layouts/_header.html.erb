@@ -9,52 +9,68 @@
         <ul class="navbar-nav ml-auto">
           <% if user_signed_in? %>
             <!-- ユーザーがサインイン中の場合 -->
+            <li class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa-solid fa-bell fa-lg"></i>
+                <span class="badge badge-danger"><%= current_user.notifications.where(read: false).count %></span>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <% if current_user.notifications.where(read: false).any? %>
+                  <small class="dropdown-item disabled">直近5件の未読の通知を表示しています</small>
+                  <% current_user.notifications.where(read: false).limit(5).order(created_at: :desc).each do |notification| %>
+                    <%= link_to notification_message(notification), notification_path(notification), method: :patch, class: "dropdown-item" %>
+                  <% end %>
+                <% else %>
+                  <span class="dropdown-item disabled">未読の通知はありません</span>
+                <% end %>
+              </div>
+            </li>
             <li class="nav-item">
-              <%= link_to  posts_path do %>
-                <i class="fa-solid fa-book-open fa-lg nav-link text-light"></i>
+              <%= link_to  posts_path, class: 'nav-link text-light' do %>
+                <i class="fa-solid fa-book-open fa-lg"></i>
               <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to mypage_path do %>
-                <i class="fa-solid fa-house fa-lg nav-link text-light"></i>
+              <%= link_to mypage_path, class: 'nav-link text-light' do %>
+                <i class="fa-solid fa-house fa-lg"></i>
               <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to  search_path do %>
-                <i class="fa-solid fa-magnifying-glass fa-lg nav-link text-light"></i>
+              <%= link_to  search_path, class: 'nav-link text-light' do %>
+                <i class="fa-solid fa-magnifying-glass fa-lg"></i>
               <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to  new_record_path do %>
-                <i class="fa-solid fa-dumbbell fa-lg nav-link text-light"></i>
+              <%= link_to  new_record_path, class: 'nav-link text-light' do %>
+                <i class="fa-solid fa-dumbbell fa-lg "></i>
               <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to destroy_user_session_path, method: :delete do %>
-                <i class="fa-solid fa-right-from-bracket fa-lg nav-link text-light"></i>
+              <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
+                <i class="fa-solid fa-right-from-bracket fa-lg"></i>
               <% end %>
             </li>
 
           <% elsif admin_signed_in? %>
             <!-- 管理者がサインインしている場合 -->
             <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
-              <%= link_to  admin_posts_path do %>
-                <i class="fa-solid fa-book-open fa-lg nav-link text-light"></i>
+              <%= link_to  admin_posts_path, class: 'nav-link text-light' do %>
+                <i class="fa-solid fa-book-open fa-lg"></i>
               <% end %>
             </li>
             <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
-              <%= link_to admin_users_path do %>
-                <i class="fa-solid fa-user fa-lg nav-link text-light"></i>
+              <%= link_to admin_users_path, class: 'nav-link text-light' do %>
+                <i class="fa-solid fa-user fa-lg"></i>
               <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to  admin_search_path do %>
-                <i class="fa-solid fa-magnifying-glass fa-lg nav-link text-light"></i>
+              <%= link_to  admin_search_path, class: 'nav-link text-light' do %>
+                <i class="fa-solid fa-magnifying-glass fa-lg"></i>
               <% end %>
             </li>
             <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
-              <%= link_to destroy_admin_session_path, method: :delete do %>
-                <i class="fa-solid fa-right-from-bracket fa-lg nav-link text-light"></i>
+              <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>
+                <i class="fa-solid fa-right-from-bracket fa-lg"></i>
               <% end %>
             </li>
 
@@ -64,13 +80,13 @@
               <%= link_to 'About', about_path, class: "nav-link text-light" %><!--text-light は、テキストを薄い色に変更-->
             </li>
             <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
-              <%= link_to new_user_registration_path do %>
-                <i class="fa-solid fa-user-plus nav-link text-light"></i>
+              <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
+                <i class="fa-solid fa-user-plus fa-lg"></i>
               <% end %>
             </li>
             <li class="nav-item"><!--nav-itemで間隔や配置が適切に調整-->
-              <%= link_to new_user_session_path do %><!--text-light は、テキストを薄い色に変更-->
-                <i class="fa-solid fa-right-to-bracket nav-link text-light"></i>
+              <%= link_to new_user_session_path, class: 'nav-link text-light' do %><!--text-light は、テキストを薄い色に変更-->
+                <i class="fa-solid fa-right-to-bracket fa-lg"></i>
               <% end %>
             </li>
           <% end %>
