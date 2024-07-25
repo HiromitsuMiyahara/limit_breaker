@@ -1,0 +1,12 @@
+DB_USERNAME="root"
+DB_PASSWORD="v1IBYOkp5oWOOpVanon7"
+DB_HOST="rds-mysql-server.c5y82206gay1.ap-northeast-1.rds.amazonaws.com"
+DB_DATABASE="limit_breaker"
+SECRET_EMAIL="0912.hiromi.0912@gmail.com"
+SECRET_PASSWORD="kybtiw-qepnac-nydJi0"
+
+TEST_EMAIL1="arnold@example.com"
+TEST_EMAIL2="stallone@example.com"
+TEST_EMAIL3="dolph@example.com"
+
+TEST_PASSWORD="password"
