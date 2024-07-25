@@ -20,7 +20,9 @@
 ・筋力トレーニング後に今回行ったメニュー、回数、重量を記録したい時。
 ​
 ## 設計書
-後ほど作成予定。
+<img width="498" alt="b4b9258f67ee4cf711f3c09d09258929" src="https://github.com/user-attachments/assets/9dc43a7d-3f13-4299-b59d-60375c77d6b8">
+<img width="558" alt="4a02e1bb2a790cb93b2a0829f4afd492" src="https://github.com/user-attachments/assets/16819029-d05b-4b97-b7df-1569f5a4274d">
+
 ​
 ## 開発環境
 - OS：Amazon Linux
