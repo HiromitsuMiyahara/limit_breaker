@@ -1,4 +1,4 @@
-require "rails helper"
+require "rails_helper"
 
 describe "投稿のテスト" do
   let!(:post) { create(:post,body:"body") }
