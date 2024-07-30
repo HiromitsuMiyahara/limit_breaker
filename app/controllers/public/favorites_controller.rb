@@ -23,6 +23,11 @@ class Public::FavoritesController < ApplicationController
         if name =~ /(.+)_id$/
           @favoritable = $1.classify.constantize.find(value)
         end
+        # /(.+)_id$/ は、文字列の末尾が「_id」で終わるものを探している
+        # $1 には、「_id」の前の部分が入る（例えば、「post」や「post_comment」）。
+        # $1.classify は、この部分をクラス名（大文字始まり）に変換（例えば、「Post」や「PostComment」）。
+        # .constantize は、文字列を実際のクラスに変換
+        # .find(value) は、そのクラスの中で特定のIDを持つレコードを探す。
       end
     end
 end
