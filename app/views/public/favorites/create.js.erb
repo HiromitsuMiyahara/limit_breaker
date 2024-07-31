@@ -1,2 +1,5 @@
-$("#post_<%= @favoritable.id %>").html("<%= j(render "public/favorites/btn_post", post: @favoritable) %>");
-$("#post_comment_<%= @favoritable.id %>").html("<%= j(render "public/post_comments/list", post_comments: @favoritable) %>");
+<% if @favoritable.is_a?(Post) %>
+  $("#post_<%= @favoritable.id %>").html("<%= j(render "public/favorites/btn_post", post: @favoritable) %>");
+<% elsif @favoritable.is_a?(PostComment) %>
+  $("#post_comment_<%= @favoritable.id %>").html("<%= j(render "public/favorites/btn_post_comment", post: @favoritable, post_comment: @favoritable) %>");
+<% end %>
