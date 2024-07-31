@@ -1,1 +1,2 @@
-$("#post_<%= @favoritable.id %>").html("<%= j(render 'public/favorites/btn_post', post: @favoritable) %>");
+$("#post_<%= @favoritable.id %>").html("<%= j(render "public/favorites/btn_post", post: @favoritable) %>");
+$("#post_comment_<%= @favoritable.id %>").html("<%= j(render "public/post_comments/list", post_comments: @favoritable) %>");

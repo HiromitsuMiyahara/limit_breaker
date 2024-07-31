@@ -1,10 +1,10 @@
 <% if post_comment.favorited_by?(current_user) %>
-  <%= link_to post_post_comment_favorites_path(post_id: post.id, post_comment_id: post_comment.id), method: :delete do %>
+  <%= link_to post_post_comment_favorites_path(post_id: post.id, post_comment_id: post_comment.id), method: :delete, remote: true, data: { turbolinks: false } do %>
     <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
     <%= post_comment.favorites.count %>
   <% end %>
 <% else %>
-  <%= link_to post_post_comment_favorites_path(post_id: post.id, post_comment_id: post_comment.id), method: :post do %>
+  <%= link_to post_post_comment_favorites_path(post_id: post.id, post_comment_id: post_comment.id), method: :post, remote: true, data: { turbolinks: false } do %>
     <i class="fas fa-heart" aria-hidden="true"></i>
     <%= post_comment.favorites.count %>
   <% end %>

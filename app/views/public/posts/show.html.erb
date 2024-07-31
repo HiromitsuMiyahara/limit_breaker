@@ -56,7 +56,7 @@
       <div class="mt-2">
         <%= render "public/post_comments/form" %>
       </div>
-      <div>
+      <div id="post_comment_<%= @post_comment.id %>">
         <%= render "public/post_comments/list", post: @post, post_comments: @post_comments %>
       </div>
     </div>
