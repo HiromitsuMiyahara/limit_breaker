@@ -16,14 +16,16 @@
             <%= post_comment.user.name %>
           </div>
           <div class="card-body">
-            <%= post_comment.comment %>
+            <div>
+              <%= post_comment.comment %>
+            </div>
             <p class="text-muted"><%= post_comment.created_at.strftime('%Y/%m/%d') %></p>
             <div id="post_comment_<%= post_comment.id %>">
               <%= render "public/favorites/btn_post_comment", post: @post, post_comment: post_comment %>
             </div>
             <div class="d-flex justify-content-end">
               <% if post_comment.user == current_user %>
-                <%= link_to "削除", post_post_comment_path(post_id: post_comment.post.id, id: post_comment), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "投稿を削除しますか？" } %>
+                <%= link_to "削除", post_post_comment_path(post_id: post_comment.post.id, id: post_comment), remote: true, method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "投稿を削除しますか？" } %>
               <% end %>
             </div>
           </div>

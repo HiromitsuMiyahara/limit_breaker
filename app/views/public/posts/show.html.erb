@@ -37,10 +37,12 @@
           <% end %>
           <p class="text-muted"><%= @post.created_at.strftime('%Y/%m/%d') %></p>
           <div class="d-flex">
-            <%= link_to post_path(@post), class: "mr-3" do %>
-              <i class="fa-solid fa-comment fa-lg"></i>
-              <%= @post.post_comments.count %>
-            <% end %>
+            <div>
+              <%= link_to post_path(@post), class: "mr-3" do %>
+                <i class="fa-solid fa-comment fa-lg"></i>
+                <span id="comments-count"><%= @post.post_comments.count %></span>
+              <% end %>
+            </div>
             <div id="post_<%= @post.id %>">
               <%= render "public/favorites/btn_post", post: @post %>
             </div>
@@ -56,7 +58,7 @@
       <div class="mt-2">
         <%= render "public/post_comments/form" %>
       </div>
-      <div>
+      <div id="post_comments">
         <%= render "public/post_comments/list", post: @post, post_comments: @post_comments %>
       </div>
     </div>
