@@ -1,10 +1,9 @@
 class Public::RecordsController < ApplicationController
   before_action :authenticate_user!
-  before_action :recorded_user, only: [:edit, :update]
+  before_action :recorded_user, only: [:edit, :update, :destroy]
 
   def new
     @record = Record.new
-    # current_user.idの全ての記録を返す
   end
 
   def index

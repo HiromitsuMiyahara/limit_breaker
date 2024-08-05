@@ -1,5 +1,6 @@
 class Public::PostCommentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :post_commented_user, only: [:destroy]
 
   def create
     @post = Post.find(params[:post_id])
@@ -31,5 +32,11 @@ class Public::PostCommentsController < ApplicationController
   private
     def post_comment_params
       params.require(:post_comment).permit(:comment)
+    end
+    def post_commented_user
+      @post_comment = PostComment.find(params[:id])
+      unless @post_comment.user == current_user
+        redirect_to posts_path
+      end
     end
 end
