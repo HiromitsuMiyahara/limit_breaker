@@ -96,10 +96,10 @@ describe "[STEP1] ユーザログイン前のテスト" do
     end
 
     context '表示内容の確認' do
-      it 'URLが正しい', spec_category: "deviseの基本的な導入・認証設定" do
+      it 'URLが正しい' do
         expect(current_path).to eq '/users/sign_up'
       end
-      it '「Sign up」と表示される', spec_category: "deviseの基本的な導入・認証設定" do
+      it '「Sign up」と表示される' do
         expect(page).to have_content 'Sign up'
       end
       it 'nameフォームが表示される', spec_category: "deviseの基本的な導入・認証設定" do
