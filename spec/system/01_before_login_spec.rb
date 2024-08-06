@@ -102,19 +102,19 @@ describe "[STEP1] ユーザログイン前のテスト" do
       it '「Sign up」と表示される' do
         expect(page).to have_content 'Sign up'
       end
-      it 'nameフォームが表示される', spec_category: "deviseの基本的な導入・認証設定" do
+      it 'nameフォームが表示される' do
         expect(page).to have_field 'user[name]'
       end
-      it 'emailフォームが表示される', spec_category: "deviseの基本的な導入・認証設定" do
+      it 'emailフォームが表示される' do
         expect(page).to have_field 'user[email]'
       end
-      it 'passwordフォームが表示される', spec_category: "deviseの基本的な導入・認証設定" do
+      it 'passwordフォームが表示される' do
         expect(page).to have_field 'user[password]'
       end
-      it 'password_confirmationフォームが表示される', spec_category: "deviseの基本的な導入・認証設定" do
+      it 'password_confirmationフォームが表示される' do
         expect(page).to have_field 'user[password_confirmation]'
       end
-      it 'Sign upボタンが表示される', spec_category: "deviseの基本的な導入・認証設定" do
+      it 'Sign upボタンが表示される' do
         expect(page).to have_button 'Sign up'
       end
     end
@@ -127,122 +127,127 @@ describe "[STEP1] ユーザログイン前のテスト" do
         fill_in 'user[password_confirmation]', with: 'password'
       end
 
-      it '正しく新規登録される', spec_category: "CRUD機能に対するコントローラの処理と流れ(ログイン状況を意識した応用)" do
+      it '正しく新規登録される' do
         expect { click_button 'Sign up' }.to change(User.all, :count).by(1)
       end
-      it '新規登録後のリダイレクト先が、新規登録できたユーザの詳細画面になっている', spec_category: "CRUD機能に対するコントローラの処理と流れ(ログイン状況を意識した応用)" do
+      it '新規登録後のリダイレクト先が、新規登録できたユーザの詳細画面になっている' do
         click_button 'Sign up'
-        expect(current_path).to eq '/users/' + User.last.id.to_s
+        expect(current_path).to eq '/mypage'
       end
     end
   end
 
   describe 'ユーザログイン' do
-    let(:user) { create(:user) }
+    let(:user) { create(:user,email:Faker::Internet.email,password:'password') }
 
     before do
       visit new_user_session_path
     end
 
     context '表示内容の確認' do
-      it 'URLが正しい', spec_category: "deviseの基本的な導入・認証設定" do
+      it 'URLが正しい' do
         expect(current_path).to eq '/users/sign_in'
       end
-      it '「Log in」と表示される', spec_category: "deviseの基本的な導入・認証設定" do
+      it '「Log in」と表示される' do
         expect(page).to have_content 'Log in'
       end
-      it 'nameフォームが表示される', spec_category: "deviseの基本的な導入・認証設定" do
-        expect(page).to have_field 'user[name]'
+      it 'emailフォームが表示される' do
+        expect(page).to have_field 'user[email]'
       end
-      it 'passwordフォームが表示される', spec_category: "deviseの基本的な導入・認証設定" do
+      it 'passwordフォームが表示される' do
         expect(page).to have_field 'user[password]'
       end
-      it 'Log inボタンが表示される', spec_category: "deviseの基本的な導入・認証設定" do
+      it 'Log inボタンが表示される' do
         expect(page).to have_button 'Log in'
       end
-      it 'emailフォームは表示されない', spec_category: "deviseの基本的な導入・認証設定" do
-        expect(page).not_to have_field 'user[email]'
+      it 'nameフォームは表示されない' do
+        expect(page).not_to have_field 'user[name]'
       end
     end
 
     context 'ログイン成功のテスト' do
       before do
-        fill_in 'user[name]', with: user.name
+        fill_in 'user[email]', with: user.email
         fill_in 'user[password]', with: user.password
         click_button 'Log in'
       end
 
-      it 'ログイン後のリダイレクト先が、ログインしたユーザの詳細画面になっている', spec_category: "CRUD機能に対するコントローラの処理と流れ(ログイン状況を意識した応用)" do
-        expect(current_path).to eq '/users/' + user.id.to_s
+      it 'ログイン後のリダイレクト先が、ログインしたユーザの詳細画面になっている' do
+        expect(current_path).to eq '/mypage'
       end
     end
 
     context 'ログイン失敗のテスト' do
       before do
-        fill_in 'user[name]', with: ''
+        fill_in 'user[email]', with: ''
         fill_in 'user[password]', with: ''
         click_button 'Log in'
       end
 
-      it 'ログインに失敗し、ログイン画面にリダイレクトされる', spec_category: "CRUD機能に対するコントローラの処理と流れ(ログイン状況を意識した応用)" do
+      it 'ログインに失敗し、ログイン画面にリダイレクトされる' do
         expect(current_path).to eq '/users/sign_in'
       end
     end
   end
 
   describe 'ヘッダーのテスト: ログインしている場合' do
-    let(:user) { create(:user) }
+    let(:user) { create(:user,email:Faker::Internet.email,password:'password') }
 
     before do
       visit new_user_session_path
-      fill_in 'user[name]', with: user.name
+      fill_in 'user[email]', with: user.email
       fill_in 'user[password]', with: user.password
       click_button 'Log in'
     end
 
     context 'ヘッダーの表示を確認' do
-      it 'Bookersリンクが表示される: 左上から1番目のリンクが「Bookers」である', spec_category: "ログイン状況に合わせた画面表示や機能制限のロジック設定" do
-        home_link = find_all('a')[0].text
-        expect(home_link).to match(/Bookers/)
+      it 'アバウトリンクが表示される: 左上から1番目のリンクが「About」である' do
+        about_link = find_all('a')[1].text
+        expect(about_link).to match(/About/)
       end
-      it 'Homeリンクが表示される: 左上から2番目のリンクが「Home」である', spec_category: "ログイン状況に合わせた画面表示や機能制限のロジック設定" do
-        home_link = find_all('a')[1].text
-        expect(home_link).to match(/Home/)
+      it 'Noticeが表示される: 左上から2番目が「Notice」である' do
+        expect(page).to have_content 'Notice'
       end
-      it 'Usersリンクが表示される: 左上から3番目のリンクが「Users」である', spec_category: "ログイン状況に合わせた画面表示や機能制限のロジック設定" do
-        users_link = find_all('a')[2].text
-        expect(users_link).to match(/Users/)
+      it 'Postsリンクが表示される: 左上から3番目のリンクが「Posts」である' do
+        posts_link = find_all('a')[2].text
+        expect(posts_link).to match(/Posts/)
       end
-      it 'Booksリンクが表示される: 左上から4番目のリンクが「Books」である', spec_category: "ログイン状況に合わせた画面表示や機能制限のロジック設定" do
-        books_link = find_all('a')[3].text
-        expect(books_link).to match(/Books/)
+      it 'MyPageリンクが表示される: 左上から4番目のリンクが「MyPage」である' do
+        mypage_link = find_all('a')[3].text
+        expect(mypage_link).to match(/MyPage/)
       end
-      it 'Log outリンクが表示される: 左上から5番目のリンクが「Log out」である', spec_category: "ログイン状況に合わせた画面表示や機能制限のロジック設定" do
-        logout_link = find_all('a')[4].text
-        expect(logout_link).to match(/Log out/)
+      it 'Searchリンクが表示される: 左上から5番目のリンクが「Search」である' do
+        search_link = find_all('a')[4].text
+        expect(search_link).to match(/Search/)
+      end
+      it 'Trainingリンクが表示される: 左上から5番目のリンクが「Training」である' do
+        training_link = find_all('a')[5].text
+        expect(training_link).to match(/Training/)
+      end
+      it 'LogOutリンクが表示される: 左上から5番目のリンクが「LogOut」である' do
+        logout_link = find_all('a')[6].text
+        expect(logout_link).to match(/Logout/)
       end
     end
   end
 
   describe 'ユーザログアウトのテスト' do
-    let(:user) { create(:user) }
+    let(:user) { create(:user,email:Faker::Internet.email,password:'password') }
 
     before do
       visit new_user_session_path
-      fill_in 'user[name]', with: user.name
+      fill_in 'user[email]', with: user.email
       fill_in 'user[password]', with: user.password
       click_button 'Log in'
-      logout_link = find_all('a')[4].text
-      logout_link = logout_link.gsub(/\n/, '').gsub(/\A\s*/, '').gsub(/\s*\Z/, '')
-      click_link logout_link
+      click_link 'Logout'
     end
 
     context 'ログアウト機能のテスト' do
-      it '正しくログアウトできている: ログアウト後のリダイレクト先においてAbout画面へのリンクが存在する', spec_category: "CRUD機能に対するコントローラの処理と流れ(ログイン状況を意識した応用)" do
-        expect(page).to have_link '', href: '/home/about'
+      it '正しくログアウトできている: ログアウト後のリダイレクト先においてAbout画面へのリンクが存在する' do
+        expect(page).to have_link '', href: '/about'
       end
-      it 'ログアウト後のリダイレクト先が、トップになっている', spec_category: "CRUD機能に対するコントローラの処理と流れ(ログイン状況を意識した応用)" do
-        expect(current_path).to eq '/'
+      it 'ログアウト後のリダイレクト先が、Login画面になっている' do
+        expect(current_path).to eq '/users/sign_in'
       end
     end
   end
