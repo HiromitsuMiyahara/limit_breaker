@@ -53,10 +53,6 @@ describe '[STEP2] ユーザログイン後のテスト' do
         expect(page).to have_link post.body, href: post_path(post)
         expect(page).to have_link other_post.body, href: post_path(other_post)
       end
-      it '自分の投稿と他人の投稿のオピニオンが表示される' do
-        expect(page).to have_content post.body
-        expect(page).to have_content other_post.body
-      end
     end
   end
-e
+end
