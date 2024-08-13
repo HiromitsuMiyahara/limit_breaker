@@ -8,7 +8,6 @@
           <%= render "public/users/profile", user: @user %>
         <% end %>
       </div>
-
       <div class="col-md-10">
         <% if @favorite_posts.present? %>
           <%= render "public/posts/posts", posts: @favorite_posts %>

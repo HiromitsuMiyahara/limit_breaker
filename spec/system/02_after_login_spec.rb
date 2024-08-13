@@ -54,5 +54,5 @@ describe '[STEP2] ユーザログイン後のテスト' do
         expect(page).to have_link other_post.body, href: post_path(other_post)
       end
     end
-  end
+  end 
 end

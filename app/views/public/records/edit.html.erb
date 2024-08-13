@@ -18,7 +18,6 @@
 
         <div class="card-body">
           <%= form_with model: @record, method: :patch, url: record_path(@record.id), local: true do |f| %>
-
             <div class="form-group">
               <div>
                 <%= f.label :start_time, "トレーニング日" %>
@@ -27,37 +26,30 @@
                 <%= f.date_select :start_time, class: "form-control" %>
               </div>
             </div>
-
             <div class="form-group">
               <%= f.label :part, "部位" %>
               <%= f.select :part, Record.part_selects.keys.map {|k| [I18n.t("enums.record.part_select.#{k}"),k]}, class: "form-control" %>
             </div>
-
             <div class="form-group">
               <%= f.label :place, "場所" %>
               <%= f.text_field :place, class: "form-control" %>
             </div>
-
             <div class="form-group">
               <%= f.label :exercise, "エクササイズ" %>
               <%= f.text_field :exercise, class: "form-control" %>
             </div>
-
             <div class="form-group">
               <%= f.label :weight, "重量(kg)" %>
               <%= f.number_field :weight, class: "form-control" %>
             </div>
-
             <div class="form-group">
               <%= f.label :rep, "レップ数" %>
               <%= f.number_field :rep, class: "form-control" %>
             </div>
-
             <div class="form-group">
               <%= f.label :set, "セット数" %>
               <%= f.number_field :set, class: "form-control" %>
             </div>
-
             <div class="form-group">
               <%= f.submit '変更を保存', class: "btn btn-primary" %>
             </div>

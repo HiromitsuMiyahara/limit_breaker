@@ -29,12 +29,10 @@
                 <%= f.file_field :post_image, accept: "image/*", class: 'form-control-file' %> <!-- 画像ファイルのみ投稿許可する -->
               </div>
             </div>
-
             <div class="form-group">
               <%= f.label :body, "内容", class: 'form-label' %>
               <%= f.text_area :body, class: 'form-control', rows: 5 %>
             </div>
-
             <div class="form-group text-center mt-4">
               <%= f.submit '変更を保存', class: 'btn btn-primary' %>
             </div>

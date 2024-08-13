@@ -4,7 +4,6 @@
     <div class="col-md-2">
       <%= render "public/users/profile", user: @user %>
     </div>
-
     <div class="col-md-8 mb-2">
       <!--バリデーションエラーメッセージ-->
       <% if @post_comment.errors.any? %>
@@ -15,7 +14,6 @@
         <% end %>
         </ul>
       <% end %>
-
       <div class="card mx-auto mt-4 shadow-lg">
         <div class="card-header">
           <% if @post.user == current_user %>
@@ -29,7 +27,6 @@
           <% end %>
           <%= @post.user.name %>
         </div>
-
         <div class="card-body">
           <%= @post.body %>
           <% if @post.post_image.present? %>

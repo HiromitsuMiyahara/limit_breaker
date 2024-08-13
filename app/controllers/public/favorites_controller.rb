@@ -6,7 +6,6 @@ class Public::FavoritesController < ApplicationController
     @favorite = @favoritable.favorites.new(user: current_user)
     @favorite.save
     # app/views/favorites/create.js.erbを参照する
-    # app/views/favorites/create.js.erbを参照する
   end
 
   def destroy
