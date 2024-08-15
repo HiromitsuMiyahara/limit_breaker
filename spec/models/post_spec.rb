@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 Rspec.describle Post, "モデルに関するテスト", type: :model do
   describe "モデルのテスト" do

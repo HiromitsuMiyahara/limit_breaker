@@ -15,8 +15,8 @@ class Public::FavoritesController < ApplicationController
   end
 
   private
-  # ポリモーフィック関連の対象を見つける
-  # 適切なモデルのインスタンスを取得、取得したインスタンスは @favoritable というインスタンス変数に格納
+    # ポリモーフィック関連の対象を見つける
+    # 適切なモデルのインスタンスを取得、取得したインスタンスは @favoritable というインスタンス変数に格納
     def find_favoritable
       if params[:post_comment_id]
         @favoritable = PostComment.find(params[:post_comment_id])

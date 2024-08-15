@@ -12,14 +12,13 @@ class Favorite < ApplicationRecord
   after_create :create_notification
 
   private
-
-  def create_notification
-    if favoritable_type == 'Post'
-      # 投稿にいいねされた場合の通知
-      Notification.create(user_id: favoritable.user.id, notifiable: self)
-    elsif favoritable_type == 'PostComment'
-      # コメントにいいねされた場合の通知
-      Notification.create(user_id: favoritable.post.user.id, notifiable: self)
+    def create_notification
+      if favoritable_type == "Post"
+        # 投稿にいいねされた場合の通知
+        Notification.create(user_id: favoritable.user.id, notifiable: self)
+      elsif favoritable_type == "PostComment"
+        # コメントにいいねされた場合の通知
+        Notification.create(user_id: favoritable.post.user.id, notifiable: self)
+      end
     end
-  end
 end

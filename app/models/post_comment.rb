@@ -17,8 +17,8 @@ class PostComment < ApplicationRecord
   after_create :create_notification
 
   private
-  def create_notification
-    # コメントされた投稿の所有者に通知を送る
-    Notification.create(user_id: post.user.id, notifiable: self)
-  end
+    def create_notification
+      # コメントされた投稿の所有者に通知を送る
+      Notification.create(user_id: post.user.id, notifiable: self)
+    end
 end
